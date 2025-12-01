@@ -159,3 +159,85 @@ class MarketMoverItem extends StatelessWidget {
     );
   }
 }
+
+class AppPortfolioItem extends StatelessWidget {
+  final String name;
+  final String symbol; 
+  final String amount; 
+  final String? percentChange; 
+  final String iconPath; 
+  final VoidCallback? onTap;
+
+  const AppPortfolioItem({
+    super.key,
+    required this.name,
+    required this.symbol,
+    required this.amount,
+    required this.iconPath,
+    this.percentChange,
+    this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 6),
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          width: 343 / 375 * MediaQuery.of(context).size.width,
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(16),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.03),
+                blurRadius: 6,
+                offset: const Offset(0, 3),
+              ),
+            ],
+          ),
+          child: Row(
+            children: [
+              Container(
+                width: 40,
+                height: 40,
+                decoration: const BoxDecoration(shape: BoxShape.circle),
+                child: Image.asset(iconPath, fit: BoxFit.contain),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    AppText(text: name, style: AppTextstyle.mediumTs16Black),
+                    const SizedBox(height: 2),
+                    AppText(text: symbol, style: AppTextstyle.regularTs14Grey),
+                  ],
+                ),
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  AppText(text: amount, style: AppTextstyle.mediumTs16Black),
+                  if (percentChange != null) ...[
+                    const SizedBox(height: 2),
+                    AppText(
+                      text: percentChange!,
+                      style: AppTextstyle.regularTs14Grey.copyWith(
+                        color: percentChange!.startsWith('-')
+                            ? AppColor.red
+                            : AppColor.green,
+                      ),
+                    ),
+                  ],
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cryptoexchange_mobile_app/components/app_text.dart';
 import 'package:cryptoexchange_mobile_app/components/app_textstyle.dart';
-import 'package:cryptoexchange_mobile_app/routes/app_route.dart';
 
 class AppSection extends StatelessWidget {
   final String title;

@@ -1,7 +1,9 @@
-import 'package:cryptoexchange_mobile_app/components/app_carditem.dart';
+import 'package:cryptoexchange_mobile_app/components/app_bottom_navigation_bar.dart';
+import 'package:cryptoexchange_mobile_app/components/app_card_item.dart';
 import 'package:cryptoexchange_mobile_app/components/app_section.dart';
 import 'package:cryptoexchange_mobile_app/components/app_text.dart';
 import 'package:cryptoexchange_mobile_app/components/app_textstyle.dart';
+import 'package:cryptoexchange_mobile_app/components/app_top_bar.dart';
 import 'package:cryptoexchange_mobile_app/const/app_assets_path.dart';
 import 'package:cryptoexchange_mobile_app/const/app_color.dart';
 import 'package:cryptoexchange_mobile_app/routes/app_route.dart';
@@ -46,43 +48,13 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
+    final double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: AppColor.bg,
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(60),
-        child: Container(
-          margin: const EdgeInsets.only(top: 20),
-          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-          child: Row(
-            children: [
-              GestureDetector(
-                onTap: () {
-                  Navigator.pushNamed(context, '');
-                },
-                child: Image.asset(
-                  AppAssetsPath.profile,
-                  width: 24,
-                  height: 24,
-                ),
-              ),
-              const Spacer(),
-              Image.asset(AppAssetsPath.coinmoney, height: 22),
-              const Spacer(),
-              GestureDetector(
-                onTap: () {
-                  Navigator.pushNamed(context, AppRoute.settings);
-                },
-                child: Image.asset(
-                  AppAssetsPath.setting,
-                  width: 24,
-                  height: 24,
-                ),
-              ),
-            ],
-          ),
-        ),
+      appBar: AppTopBar(
+        leftRoute: AppRoute.home,
+        rightRoute: AppRoute.settings,
       ),
-
       body: ListView(
         children: [
           Column(
@@ -117,7 +89,16 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: screenHeight * 128 / 812,
                 fit: BoxFit.contain,
               ),
-              AppSection(title: 'Market Movers', routeName: AppRoute.market),
+              AppSection(
+                title: 'Market Movers',
+                routeName: AppRoute.market,
+                margin: EdgeInsets.only(
+                  top: screenHeight * 16 / 812,
+                  left: screenWidth * 16 / 375,
+                  right: screenWidth * 16 / 375,
+                  bottom: screenHeight * 8 / 812,
+                ),
+              ),
               SizedBox(
                 height: 172,
                 child: ListView.separated(
@@ -139,59 +120,35 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               AppSection(title: 'Portfolio', routeName: AppRoute.market),
+              AppPortfolioItem(
+                name: 'Bitcoin',
+                symbol: 'BTC',
+                amount: '\$1,270.10',
+                percentChange: '+2.76%',
+                iconPath: AppAssetsPath.bitcoin,
+                onTap: () {},
+              ),
+              AppPortfolioItem(
+                name: 'Ethereum',
+                symbol: 'ETH',
+                amount: '\$270.10',
+                percentChange: '-1.76%',
+                iconPath: AppAssetsPath.ethereum,
+              ),
+              AppPortfolioItem(
+                name: 'Solana',
+                symbol: 'ETH',
+                amount: '\$1,270.10',
+                percentChange: '-1.76%',
+                iconPath: AppAssetsPath.solana,
+              ),
             ],
           ),
         ],
       ),
-      bottomNavigationBar: SizedBox(
-        height: screenHeight * (78 / 812),
-        child: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          items: <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Image.asset(AppAssetsPath.home, width: 24, height: 24),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Image.asset(AppAssetsPath.trade, width: 24, height: 24),
-              label: 'Trade',
-            ),
-            BottomNavigationBarItem(
-              icon: Image.asset(AppAssetsPath.market, width: 24, height: 24),
-              label: 'Market',
-            ),
-            BottomNavigationBarItem(
-              icon: Image.asset(AppAssetsPath.favorites, width: 24, height: 24),
-              label: 'Favorites',
-            ),
-            BottomNavigationBarItem(
-              icon: Image.asset(AppAssetsPath.wallet, width: 24, height: 24),
-              label: 'Wallet',
-            ),
-          ],
-          selectedItemColor: AppColor.primary,
-          unselectedItemColor: AppColor.grey,
-          showUnselectedLabels: true,
-          onTap: (index) {
-            switch (index) {
-              case 0:
-                Navigator.pushNamed(context, AppRoute.home);
-                break;
-              case 1:
-                Navigator.pushNamed(context, AppRoute.trade);
-                break;
-              case 2:
-                Navigator.pushNamed(context, AppRoute.market);
-                break;
-              case 3:
-                Navigator.pushNamed(context, AppRoute.favorite);
-                break;
-              case 4:
-                Navigator.pushNamed(context, AppRoute.wallet);
-                break;
-            }
-          },
-        ),
+      bottomNavigationBar: AppBottomNavigationBar(
+        screenHeight: screenHeight,
+        currentIndex: 0,
       ),
     );
   }
