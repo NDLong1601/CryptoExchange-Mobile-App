@@ -38,6 +38,12 @@ class AppTextstyle {
     fontWeight: FontWeight.w400,
     color: AppColor.grey,
   );
+  static TextStyle regularTs12Grey = TextStyle(
+    fontFamily: 'Readex Pro',
+    fontSize: 12,
+    fontWeight: FontWeight.w400,
+    color: AppColor.grey,
+  );
 
   /// Weight 500
   static TextStyle mediumTs16White = TextStyle(

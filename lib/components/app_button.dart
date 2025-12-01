@@ -9,7 +9,7 @@ class AppButton extends StatelessWidget {
   final String? leftIcon;
   final String? rightIcon;
 
-  final double height;
+  final double? height;
   final double? width;
 
   final Color? backgroundColor;
@@ -26,7 +26,7 @@ class AppButton extends StatelessWidget {
     this.onPressed,
     this.leftIcon,
     this.rightIcon,
-    this.height = 52,
+    this.height,
     this.width,
     this.backgroundColor,
     this.textColor,
@@ -38,30 +38,33 @@ class AppButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bool isDisabled = type == AppButtonType.disabled;
-
-    // --- Style default theo type ---
-    Color bg = backgroundColor ??
+    final double screenHeight = MediaQuery.of(context).size.height;
+    final double screenWidth = MediaQuery.of(context).size.width;
+    Color bg =
+        backgroundColor ??
         (type == AppButtonType.primary
             ? const Color(0xFF2D63E2)
             : type == AppButtonType.secondary
-                ? Colors.white
-                : Colors.grey.shade300);
+            ? Colors.white
+            : Colors.grey.shade300);
 
-    Color txtColor = textColor ??
+    Color txtColor =
+        textColor ??
         (type == AppButtonType.primary
             ? Colors.white
             : type == AppButtonType.secondary
-                ? const Color(0xFF2D63E2)
-                : Colors.grey);
+            ? const Color(0xFF2D63E2)
+            : Colors.grey);
 
-    Color brColor = borderColor ??
+    Color brColor =
+        borderColor ??
         (type == AppButtonType.secondary
             ? const Color(0xFF2D63E2)
             : Colors.transparent);
 
     return SizedBox(
-      height: height,
-      width: width ?? double.infinity,
+      height: height ?? 52 / 812 * screenHeight,
+      width: width ?? 343 / 375 * screenWidth,
       child: ElevatedButton(
         onPressed: isDisabled ? null : onPressed,
         style: ElevatedButton.styleFrom(
@@ -82,10 +85,7 @@ class AppButton extends StatelessWidget {
                 child: Image.asset(leftIcon!, width: 20, height: 20),
               ),
 
-            Text(
-              text,
-              style: TextStyle(fontSize: 16, color: txtColor),
-            ),
+            Text(text, style: TextStyle(fontSize: 16, color: txtColor)),
 
             if (rightIcon != null)
               Padding(

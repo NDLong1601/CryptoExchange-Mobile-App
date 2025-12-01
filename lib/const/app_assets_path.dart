@@ -8,6 +8,7 @@ class AppAssetsPath {
   static const String google = 'assets/images/img_google.png';
   static const String graph1 = 'assets/images/img_graph_1.png';
   static const String graph2 = 'assets/images/img_graph_2.png';
+  static const String graph3 = 'assets/images/img_graph_3.png';
   static const String letterSent = 'assets/images/img_letter_sent.png';
   static const String letter = 'assets/images/img_letter.png';
   static const String mail = 'assets/images/img_mail.png';
@@ -30,4 +31,15 @@ class AppAssetsPath {
   static const String setting = 'assets/icons/ic_setting.png';
   static const String support = 'assets/icons/ic_support.png';
   static const String themes = 'assets/icons/ic_themes.png';
+  static const String home = 'assets/icons/ic_home.png';
+  static const String wallet = 'assets/icons/ic_wallet.png';
+  static const String trade = 'assets/icons/ic_trade.png';
+  static const String favorites = 'assets/icons/ic_favorites.png';
+  static const String market = 'assets/icons/ic_market.png';
+
+  final List<String> onboardingImages = [
+    AppAssetsPath.onboarding1,
+    AppAssetsPath.onboarding2,
+    AppAssetsPath.onboarding3,
+  ];
 }
