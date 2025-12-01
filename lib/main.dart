@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:cryptoexchange_mobile_app/providers/demo_provider.dart';
 import 'package:cryptoexchange_mobile_app/providers/theme_provider.dart';
 import 'package:cryptoexchange_mobile_app/routes/app_route.dart';
@@ -25,12 +24,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-<<<<<<< HEAD
       // theme: ThemeData.light(),
       // darkTheme: ThemeData.dark(),
       initialRoute: AppRoute.onboarding,
       routes: AppRoute().routes,
-=======
       theme: ThemeData.light(),
       darkTheme: ThemeData.dark(),
       // initialRoute: AppRoute.onboarding,
@@ -120,7 +117,6 @@ class _DemoStreamState extends State<DemoStream> {
 
   @override
   void initState() {
-    print('object here');
     super.initState();
   }
 
@@ -183,7 +179,6 @@ class _DemoStreamState extends State<DemoStream> {
           ),
         ],
       ),
->>>>>>> 137d1a88efae9ce523c837fff9bc7d6a4d27f693
     );
   }
 }
