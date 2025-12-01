@@ -1,7 +1,7 @@
 import 'package:cryptoexchange_mobile_app/screens/favorites/favorites_screen.dart';
-import 'package:cryptoexchange_mobile_app/screens/home/home_screen.dart';
-import 'package:cryptoexchange_mobile_app/screens/onboarding/onboarding_screen.dart';
-import 'package:cryptoexchange_mobile_app/screens/settings/settings.dart';
+import 'package:cryptoexchange_mobile_app/screens/home_screen.dart';
+import 'package:cryptoexchange_mobile_app/screens/onboarding_screen.dart';
+import 'package:cryptoexchange_mobile_app/screens/settings.dart';
 import 'package:cryptoexchange_mobile_app/screens/trade/trade_screen.dart';
 import 'package:flutter/material.dart';
 

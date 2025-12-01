@@ -1,8 +1,15 @@
+import 'package:cryptoexchange_mobile_app/providers/theme_provider.dart';
 import 'package:cryptoexchange_mobile_app/routes/app_route.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => ThemeProvider(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -11,9 +18,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.deepPurple)),
+      theme: ThemeData.light(),
+      darkTheme: ThemeData.dark(),
       initialRoute: AppRoute.onboarding,
       routes: AppRoute().routes,
     );
