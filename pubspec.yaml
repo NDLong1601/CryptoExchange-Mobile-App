@@ -19,7 +19,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ^3.10.1
+  sdk: ^3.9.2
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -30,9 +30,19 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  
+  # State management
+  provider: ^6.1.2
 
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
+  # Local storage
+  shared_preferences: ^2.5.3
+  
+  # WebSocket
+  web_socket_channel: ^3.0.3
+
+  # JSON Annototation for serialization
+  json_annotation: ^4.8.1
+
   cupertino_icons: ^1.0.8
 
 dev_dependencies:
@@ -46,6 +56,10 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^6.0.0
 
+  # Code generation for Hive and JSON
+  build_runner: ^2.4.7
+  json_serializable: ^6.7.1
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -58,9 +72,9 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+    - assets/images/
+    - assets/icons/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
@@ -73,11 +87,12 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
+  fonts:
+    - family: Schyler
+      fonts:
+        - asset: assets/fonts/ReadexPro-Regular-w400.ttf
+        - asset: assets/fonts/ReadexPro-Medium-w500.ttf
+        - asset: assets/fonts/ReadexPro-SemiBold-w600.ttf
   #         style: italic
   #   - family: Trajan Pro
   #     fonts:
