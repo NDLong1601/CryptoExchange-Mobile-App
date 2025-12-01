@@ -19,7 +19,6 @@ class AppBottomNavigationBar extends StatelessWidget {
       height: screenHeight * (78 / 812),
       child: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-
         currentIndex: currentIndex,
         selectedItemColor: AppColor.primary,
         unselectedItemColor: AppColor.grey,
