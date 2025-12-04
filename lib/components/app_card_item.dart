@@ -10,6 +10,7 @@ class MarketMoverItem extends StatelessWidget {
   final String volume;
   final String iconPath;
   final String chartPath;
+  final Color percentColor;
 
   const MarketMoverItem({
     super.key,
@@ -19,6 +20,7 @@ class MarketMoverItem extends StatelessWidget {
     required this.volume,
     required this.iconPath,
     required this.chartPath,
+    required this.percentColor,
   });
 
   @override

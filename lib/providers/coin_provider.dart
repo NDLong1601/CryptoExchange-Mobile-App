@@ -3,8 +3,7 @@ import 'package:cryptoexchange_mobile_app/repositories/coin_repository.dart';
 import 'package:flutter/material.dart';
 
 class CoinProvider extends ChangeNotifier {
-  // Demo provider implementation
-  final CoinRepository _coinRepository = CoinRepository();
+  final CoinRepository coinRepository = CoinRepository();
 
   bool _isLoading = false;
   bool get isLoading => _isLoading;
@@ -12,24 +11,67 @@ class CoinProvider extends ChangeNotifier {
   String _errorMessage = '';
   String get errorMessage => _errorMessage;
 
-  Coin? _coin;
-  Coin? get coin => _coin;
+  final Map<String, Coin> _coinsMap = {};
+  List<Coin> get coins => _coinsMap.values.toList();
 
-  /// List<Coin> _coins = [];
+  Stream<Coin> get coinStream => coinRepository.coinStream;
 
-  Future<void> subscribeToTicker(String symbol) async {
-    await _coinRepository.subscribeToCoinTicker(symbol);
+  final List<String> trackedSymbols = [
+    'btcusdt',
+    'ethusdt',
+    'bnbusdt',
+    'solusdt',
+    'adausdt',
+    'xrpusdt',
+    'dotusdt',
+    'maticusdt',
+    'dogeusdt',
+    'avaxusdt',
+    'linkusdt',
+    'ltcusdt',
+    'atomusdt',
+    'nearusdt',
+    'filusdt',
+    'uniusdt',
+    'trxusdt',
+    'xlmusdt',
+    'apeusdt',
+    'egldusdt',
+  ];
 
-    /// Listen to coin stream
-    _coinRepository.coinStream.listen(
-      (coinData) {
-        _coin = coinData;
-        notifyListeners();
-      },
-      onError: (error) {
-        _errorMessage = error.toString();
-        notifyListeners();
-      },
-    );
+  Future<void> startListening() async {
+    _isLoading = true;
+    notifyListeners();
+    try {
+      await coinRepository.subscribeToCoins(trackedSymbols);
+      debugPrint('Started listening to coin updates');
+      coinRepository.coinStream.listen(
+        (coinData) {
+          // Update map
+          final symbol = coinData.symbol.toLowerCase();
+          _coinsMap[symbol] = coinData;
+          debugPrint('Updated coin data: $symbol -> ${coinData.price}');
+          debugPrint('Total coins tracked: ${_coinsMap.length}');
+          notifyListeners();
+        },
+        onError: (err) {
+          _errorMessage = err.toString();
+          debugPrint('Error in coin stream: $_errorMessage');
+          notifyListeners();
+        },
+      );
+      _isLoading = false;
+      notifyListeners();
+    } catch (e) {
+      _isLoading = false;
+      _errorMessage = e.toString();
+      debugPrint('Error starting coin listener: $_errorMessage');
+      notifyListeners();
+    }
+  }
+
+  void stopListening() {
+    coinRepository.disconnect();
+    debugPrint('Stopped listening to coin updates');
   }
 }

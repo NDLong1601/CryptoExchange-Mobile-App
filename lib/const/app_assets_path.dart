@@ -17,6 +17,11 @@ class AppAssetsPath {
   static const String onboarding3 = 'assets/images/img_onboarding3.png';
   static const String security = 'assets/images/img_security.png';
   static const String solana = 'assets/images/img_solana.png';
+  static const String cardano = 'assets/images/img_cardano.png';
+  static const String coindefault = 'assets/images/img_coindefault.png';
+  static const String xrp = 'assets/images/img_xrp.png';
+  static const String link = 'assets/images/img_chainlink.png';
+  static const String stellar = 'assets/images/img_stellar.png';
 
   // Icons
   static const String add = 'assets/icons/ic_add.png';

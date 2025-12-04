@@ -25,10 +25,13 @@ class BinanceWebsocketService {
   Stream<Coin> get coinStream => _coinStreamController.stream;
 
   /// Implement methods to connect, disconnect, and listen to streams
-  /// List<String> symbols
-  Future<void> connectToTickers({required String symbol}) async {
+  Future<void> connectToTickers({required List<String> symbols}) async {
     try {
-      final String url = '$_binanceWsUrl$symbol@ticker';
+      final streamParams = symbols
+          .map((s) => "${s.toLowerCase()}@ticker")
+          .join('/');
+      final String url = "$_binanceWsUrl$streamParams";
+      debugPrint('🔌 Connecting to Binance WebSocket: $url');
       _tickerWebSocketChannel = WebSocketChannel.connect(Uri.parse(url));
 
       if (_tickerWebSocketChannel == null) {
@@ -52,4 +55,123 @@ class BinanceWebsocketService {
       // Handle connection errors
     }
   }
+
+  Future<void> disconnect() async {
+    try {
+      await _tickerWebSocketChannel?.sink.close();
+      _tickerWebSocketChannel = null;
+      debugPrint("Binance WS disconnected.");
+    } catch (e) {
+      debugPrint("Error during WS disconnect: $e");
+    }
+  }
+
+  void dispose() {
+    _coinStreamController.close();
+    disconnect();
+  }
 }
+
+
+
+// class BinanceWebsocketService {
+//   BinanceWebsocketService._internal();
+//   static final BinanceWebsocketService _instance = BinanceWebsocketService._internal();
+//   factory BinanceWebsocketService() => _instance;
+
+//   static const String _baseWsUrl =
+//       'wss://stream.binance.com:9443/stream?streams=';
+
+//   WebSocketChannel? _channel;
+
+//   /// Broadcast stream toàn bộ Coin updates
+//   final StreamController<Coin> _coinController =
+//       StreamController<Coin>.broadcast();
+
+//   Stream<Coin> get coinStream => _coinController.stream;
+
+//   Timer? _reconnectTimer;
+
+//   bool _isConnecting = false;
+
+//   Future<void> connect(List<String> symbols) async {
+//     if (_isConnecting) return;
+//     _isConnecting = true;
+
+//     try {
+//       final streamPaths =
+//           symbols.map((s) => "${s.toLowerCase()}@ticker").join('/');
+
+//       final fullUrl = "$_baseWsUrl$streamPaths";
+
+//       debugPrint("🔌 Connecting WebSocket: $fullUrl");
+
+//       _channel = WebSocketChannel.connect(Uri.parse(fullUrl));
+
+//       _listenWebSocket();
+
+//       _isConnecting = false;
+//     } catch (e) {
+//       debugPrint("❌ WebSocket connection error: $e");
+//       _scheduleReconnect(symbols);
+//     }
+//   }
+
+//   void _listenWebSocket() {
+//     _channel?.stream.listen(
+//       (data) {
+//         try {
+//           final jsonData = jsonDecode(data);
+
+//           // Binance multi-stream format: { stream: "...", data: {...ticker...} }
+//           if (jsonData == null ||
+//               jsonData["data"] == null ||
+//               jsonData["data"]["c"] == null) {
+//             debugPrint("⚠️ Invalid WebSocket data: $data");
+//             return;
+//           }
+
+//           final coin = Coin.fromJson(jsonData["data"]);
+//           _coinController.add(coin);
+//         } catch (e) {
+//           debugPrint("⚠️ Error parsing ticker JSON: $e");
+//         }
+//       },
+//       onDone: () {
+//         debugPrint("⚠️ WebSocket closed, reconnecting...");
+//         _scheduleReconnect();
+//       },
+//       onError: (error) {
+//         debugPrint("❌ WebSocket error: $error");
+//         _scheduleReconnect();
+//       },
+//     );
+//   }
+
+
+//   void _scheduleReconnect([List<String>? symbols]) {
+//     if (_reconnectTimer != null) return;
+
+//     _reconnectTimer = Timer(const Duration(seconds: 3), () {
+//       _reconnectTimer = null;
+//       if (symbols != null) {
+//         connect(symbols);
+//       }
+//     });
+//   }
+
+//   void disconnect() {
+//     debugPrint("🔌 Disconnect WebSocket");
+
+//     _reconnectTimer?.cancel();
+//     _reconnectTimer = null;
+
+//     _channel?.sink.close();
+//     _channel = null;
+//   }
+
+//   void dispose() {
+//     disconnect();
+//     _coinController.close();
+//   }
+// }
