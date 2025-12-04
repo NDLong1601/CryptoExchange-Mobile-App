@@ -2,7 +2,7 @@ import 'package:cryptoexchange_mobile_app/models/coin.dart';
 import 'package:cryptoexchange_mobile_app/repositories/coin_repository.dart';
 import 'package:flutter/material.dart';
 
-class DemoProvider extends ChangeNotifier {
+class CoinProvider extends ChangeNotifier {
   // Demo provider implementation
   final CoinRepository _coinRepository = CoinRepository();
 

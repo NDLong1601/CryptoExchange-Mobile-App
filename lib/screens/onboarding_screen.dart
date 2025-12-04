@@ -5,6 +5,7 @@ import 'package:cryptoexchange_mobile_app/const/app_assets_path.dart';
 import 'package:cryptoexchange_mobile_app/const/app_color.dart';
 import 'package:cryptoexchange_mobile_app/core/enum/enum.dart';
 import 'package:cryptoexchange_mobile_app/routes/app_route.dart';
+import 'package:cryptoexchange_mobile_app/services/storage_service.dart';
 import 'package:flutter/material.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -17,6 +18,43 @@ class OnboardingScreen extends StatefulWidget {
 class _OnboardingScreenState extends State<OnboardingScreen> {
   final PageController _pageController = PageController();
   int _currentPage = 0;
+  final StorageService _storageService = StorageService();
+
+  @override
+  void initState() {
+    super.initState();
+    _checkOnboardingStatus();
+  }
+
+  Future<void> _checkOnboardingStatus() async {
+    final completed = await _storageService.isOnboardingCompleted();
+    if (!mounted) return;
+    if (completed) {
+      Navigator.pushReplacementNamed(context, AppRoute.home);
+    }
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _onNextPressed() async {
+    final lastPageIndex = _titles.length - 1;
+
+    if (_currentPage < lastPageIndex) {
+      _pageController.nextPage(
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    } else {
+      await _storageService.setOnboardingCompleted(true);
+      if (!mounted) return;
+
+      Navigator.pushReplacementNamed(context, AppRoute.home);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,16 +94,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             AppButton(
               text: 'Next',
               type: AppButtonType.primary,
-              onPressed: () {
-                if (_currentPage < 2) {
-                  _pageController.nextPage(
-                    duration: const Duration(milliseconds: 300),
-                    curve: Curves.easeIn,
-                  );
-                } else {
-                  Navigator.pushReplacementNamed(context, AppRoute.home);
-                }
-              },
+              onPressed: _onNextPressed,
             ),
           ],
         ),
@@ -93,23 +122,23 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     );
   }
 
+  final _titles = [
+    "Take hold of your\n finances",
+    "\nSmart trading tools",
+    "\nInvest in the future",
+  ];
+
+  final _descriptions = [
+    "Lorem ipsum dolor sit amet, consectetur\n adipiscing elit. Ut egestas mauris massa pharetra.",
+    "Lorem ipsum dolor sit amet, consectetur\n adipiscing elit. Ut egestas mauris massa pharetra.",
+    "Lorem ipsum dolor sit amet, consectetur\n adipiscing elit. Ut egestas mauris massa pharetra.",
+  ];
+
   Widget _buildContent() {
-    final titles = [
-      "Take hold of your\n finances",
-      "\nSmart trading tools",
-      "\nInvest in the future",
-    ];
-
-    final descriptions = [
-      "Lorem ipsum dolor sit amet, consectetur\n adipiscing elit. Ut egestas mauris massa pharetra.",
-      "Lorem ipsum dolor sit amet, consectetur\n adipiscing elit. Ut egestas mauris massa pharetra.",
-      "Lorem ipsum dolor sit amet, consectetur\n adipiscing elit. Ut egestas mauris massa pharetra.",
-    ];
-
     return Column(
       children: [
         AppText(
-          text: titles[_currentPage],
+          text: _titles[_currentPage],
           style: AppTextstyle.semiBoldTs32Black,
           textAlign: TextAlign.center,
           maxLines: 2,
@@ -118,7 +147,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: AppText(
-            text: descriptions[_currentPage],
+            text: _descriptions[_currentPage],
             style: AppTextstyle.regularTs14Black,
             textAlign: TextAlign.center,
             maxLines: 2,
