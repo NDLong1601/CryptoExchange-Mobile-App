@@ -31,7 +31,7 @@ class MarketMoverItem extends StatelessWidget {
       padding: EdgeInsets.only(top: 17, left: 12, right: 12),
       decoration: BoxDecoration(
         /// TODO: Change to use AppColor
-        color: Colors.white,
+        color: Theme.of(context).scaffoldBackgroundColor,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: const Color(0xFFE5E8EF), width: 1),
         boxShadow: [

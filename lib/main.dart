@@ -44,6 +44,7 @@
 //   }
 // }
 
+import 'package:cryptoexchange_mobile_app/core/theme/app_theme.dart';
 import 'package:cryptoexchange_mobile_app/providers/coin_provider.dart';
 import 'package:cryptoexchange_mobile_app/providers/theme_provider.dart';
 import 'package:cryptoexchange_mobile_app/routes/app_route.dart';
@@ -85,8 +86,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: initialRoute,
       routes: AppRoute().routes,
-      theme: ThemeData.light(),
-      darkTheme: ThemeData.dark(),
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
       themeMode: themeProvider.themeMode,
     );
   }
