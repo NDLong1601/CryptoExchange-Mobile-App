@@ -1,3 +1,4 @@
+import 'package:cryptoexchange_mobile_app/core/extensions/context_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:cryptoexchange_mobile_app/components/app_text.dart';
 import 'package:cryptoexchange_mobile_app/components/app_textstyle.dart';
@@ -26,9 +27,10 @@ class MarketMoverItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 156,
+      width: context.screenWidth * 156 / 375,
       padding: EdgeInsets.only(top: 17, left: 12, right: 12),
       decoration: BoxDecoration(
+        /// TODO: Change to use AppColor
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: const Color(0xFFE5E8EF), width: 1),
@@ -48,13 +50,11 @@ class MarketMoverItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    AppText(text: symbol, style: AppTextstyle.regularTs16Black),
-                    const SizedBox(height: 2),
-                    AppText(text: price, style: AppTextstyle.regularTs16Black),
-                  ],
+                child: AppText(
+                  text: '$symbol\n$price',
+                  style: AppTextstyle.regularTs16Black,
+                  maxLines: 2,
+                  textAlign: TextAlign.left,
                 ),
               ),
               Image.asset(iconPath, height: 32, width: 32),
@@ -85,10 +85,10 @@ class MarketMoverItem extends StatelessWidget {
 
 class AppPortfolioItem extends StatelessWidget {
   final String name;
-  final String symbol; 
-  final String amount; 
-  final String? percentChange; 
-  final String iconPath; 
+  final String symbol;
+  final String amount;
+  final String? percentChange;
+  final String iconPath;
   final VoidCallback? onTap;
 
   const AppPortfolioItem({
@@ -108,7 +108,7 @@ class AppPortfolioItem extends StatelessWidget {
       child: GestureDetector(
         onTap: onTap,
         child: Container(
-          width: 343 / 375 * MediaQuery.of(context).size.width,
+          width: context.screenWidth - 32,
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           decoration: BoxDecoration(
             color: Colors.white,
@@ -123,21 +123,23 @@ class AppPortfolioItem extends StatelessWidget {
           ),
           child: Row(
             children: [
-              Container(
+              SizedBox(
                 width: 40,
                 height: 40,
-                decoration: const BoxDecoration(shape: BoxShape.circle),
                 child: Image.asset(iconPath, fit: BoxFit.contain),
               ),
               const SizedBox(width: 12),
               Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    AppText(text: name, style: AppTextstyle.mediumTs16Black),
-                    const SizedBox(height: 2),
-                    AppText(text: symbol, style: AppTextstyle.regularTs14Grey),
-                  ],
+                child: Text.rich(
+                  TextSpan(
+                    children: [
+                      TextSpan(text: name, style: AppTextstyle.mediumTs16Black),
+                      TextSpan(
+                        text: "\n$symbol",
+                        style: AppTextstyle.regularTs14Grey,
+                      ),
+                    ],
+                  ),
                 ),
               ),
               Column(

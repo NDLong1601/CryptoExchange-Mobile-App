@@ -32,6 +32,7 @@ part 'coin.g.dart';
 //   }
 // }
 
+/// DTO : -> Data Transfer Object
 @JsonSerializable()
 class Coin {
   @JsonKey(name: 's')

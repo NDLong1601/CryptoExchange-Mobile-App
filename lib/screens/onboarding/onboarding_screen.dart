@@ -4,6 +4,7 @@ import 'package:cryptoexchange_mobile_app/components/app_textstyle.dart';
 import 'package:cryptoexchange_mobile_app/const/app_assets_path.dart';
 import 'package:cryptoexchange_mobile_app/const/app_color.dart';
 import 'package:cryptoexchange_mobile_app/core/enum/enum.dart';
+import 'package:cryptoexchange_mobile_app/core/extensions/context_extension.dart';
 import 'package:cryptoexchange_mobile_app/routes/app_route.dart';
 import 'package:cryptoexchange_mobile_app/services/storage_service.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,6 @@ class OnboardingScreen extends StatefulWidget {
 class _OnboardingScreenState extends State<OnboardingScreen> {
   final PageController _pageController = PageController();
   int _currentPage = 0;
-  final StorageService _storageService = StorageService();
 
   @override
   void initState() {
@@ -27,7 +27,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   }
 
   Future<void> _checkOnboardingStatus() async {
-    final completed = await _storageService.isOnboardingCompleted();
+    final completed = StorageService.instance.isOnboardingCompleted();
     if (!mounted) return;
     if (completed) {
       Navigator.pushReplacementNamed(context, AppRoute.home);
@@ -49,7 +49,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         curve: Curves.easeInOut,
       );
     } else {
-      await _storageService.setOnboardingCompleted(true);
+      await StorageService.instance.setOnboardingCompleted(true);
       if (!mounted) return;
 
       Navigator.pushReplacementNamed(context, AppRoute.home);
@@ -58,7 +58,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: AppColor.bg,
       body: SafeArea(
@@ -66,13 +65,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           children: [
             Padding(
               padding: EdgeInsets.only(
-                top: screenHeight * (6 / 812),
-                bottom: screenHeight * (18 / 812),
+                top: context.screenHeight * (6 / 812),
+                bottom: context.screenHeight * (18 / 812),
               ),
               child: Center(child: Image.asset(AppAssetsPath.coinmoney)),
             ),
             SizedBox(
-              height: 372 / 812 * screenHeight,
+              height: 372 / 812 * context.screenHeight,
               child: PageView.builder(
                 controller: _pageController,
                 itemCount: AppAssetsPath().onboardingImages.length,
@@ -89,7 +88,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 },
               ),
             ),
-            SizedBox(height: screenHeight * (34 / 812)),
+            SizedBox(height: context.screenHeight * (34 / 812)),
             _buildContent(),
             AppButton(
               text: 'Next',

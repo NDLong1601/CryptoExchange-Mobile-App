@@ -55,8 +55,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // Check onboarding completion
-  final storage = StorageService();
-  final completed = await storage.isOnboardingCompleted();
+  await StorageService.instance.initSharedPreferences();
+  final completed = StorageService.instance.isOnboardingCompleted();
   debugPrint('Onboarding completed status at app start: $completed');
 
   runApp(
@@ -66,7 +66,7 @@ void main() async {
         ChangeNotifierProvider(create: (_) => CoinProvider()..startListening()),
       ],
       child: MyApp(
-        initialRoute: completed ? AppRoute.home : AppRoute.onboarding,
+        initialRoute: completed ? AppRoute.bottomTab : AppRoute.onboarding,
       ),
     ),
   );

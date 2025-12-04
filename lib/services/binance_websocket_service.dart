@@ -42,12 +42,16 @@ class BinanceWebsocketService {
         /// Handle incoming data
         final jsonData = jsonDecode(data);
         if (jsonData == null || jsonData['data'] == null) {
-          debugPrint('Invalid data received from WebSocket: $data');
+          // debugPrint('Invalid data received from WebSocket: $data');
           return;
         }
         final coinData = Coin.fromJson(jsonData['data']);
+
+        /// Gom thành 20 phần từ trước, sau đó add vào map
+
+        /// Add single coin data to stream
         _coinStreamController.add(coinData);
-        debugPrint('Received data: $data');
+        // debugPrint('Received data: $data');
       });
     } catch (e, stackTrace) {
       debugPrint('Error connecting to Binance WebSocket: $e');

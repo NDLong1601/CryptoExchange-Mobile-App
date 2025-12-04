@@ -1,11 +1,13 @@
+import 'package:cryptoexchange_mobile_app/screens/bottom_navigation/bottom_navigation_tab.dart';
 import 'package:cryptoexchange_mobile_app/screens/favorites/favorites_screen.dart';
-import 'package:cryptoexchange_mobile_app/screens/home_screen.dart';
-import 'package:cryptoexchange_mobile_app/screens/onboarding_screen.dart';
-import 'package:cryptoexchange_mobile_app/screens/settings.dart';
+import 'package:cryptoexchange_mobile_app/screens/home/home_screen.dart';
+import 'package:cryptoexchange_mobile_app/screens/onboarding/onboarding_screen.dart';
+import 'package:cryptoexchange_mobile_app/screens/setting/settings.dart';
 import 'package:cryptoexchange_mobile_app/screens/trade/trade_screen.dart';
 import 'package:flutter/material.dart';
 
 class AppRoute {
+  static const String bottomTab = '/bottom_navigation_tab';
   static const String home = '/home';
   static const String onboarding = '/onboarding';
   static const String settings = '/settings';
@@ -15,6 +17,7 @@ class AppRoute {
   static const String market = '/market';
 
   Map<String, Widget Function(BuildContext)> routes = <String, WidgetBuilder>{
+    AppRoute.bottomTab: (context) => const BottomNavigationTab(),
     AppRoute.home: (context) => const HomeScreen(),
     AppRoute.onboarding: (context) => const OnboardingScreen(),
     AppRoute.settings: (context) => const SettingsScreen(),
