@@ -74,4 +74,5 @@ class CoinProvider extends ChangeNotifier {
     coinRepository.disconnect();
     debugPrint('Stopped listening to coin updates');
   }
+
 }

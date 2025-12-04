@@ -22,7 +22,7 @@ class AppAssetsPath {
   static const String xrp = 'assets/images/img_xrp.png';
   static const String link = 'assets/images/img_chainlink.png';
   static const String stellar = 'assets/images/img_stellar.png';
-
+  static const String avatar = 'assets/images/img_avatar.png';
   // Icons
   static const String add = 'assets/icons/ic_add.png';
   static const String bonus = 'assets/icons/ic_bonus.png';
@@ -32,7 +32,7 @@ class AppAssetsPath {
   static const String message = 'assets/icons/ic_message.png';
   static const String notifications = 'assets/icons/ic_notifications.png';
   static const String profile = 'assets/icons/ic_profile.png';
-  static const String securityIcon = 'assets/icons/ic_security.png';
+  static const String securityic = 'assets/icons/ic_security.png';
   static const String setting = 'assets/icons/ic_setting.png';
   static const String support = 'assets/icons/ic_support.png';
   static const String themes = 'assets/icons/ic_themes.png';

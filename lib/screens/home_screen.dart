@@ -22,11 +22,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-
-    Future.microtask(() {
-      if (mounted) {
-        Provider.of<CoinProvider>(context, listen: false).startListening();
-      }
+    WidgetsBinding.instance.addPersistentFrameCallback((_) {
+      context.read<CoinProvider>().startListening();
     });
   }
 

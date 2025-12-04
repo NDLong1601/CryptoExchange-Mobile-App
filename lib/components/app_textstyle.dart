@@ -9,6 +9,12 @@ class AppTextstyle {
     fontWeight: FontWeight.w600,
     color: AppColor.black,
   );
+  static TextStyle semiBoldTs18Black = TextStyle(
+    fontFamily: 'Readex Pro',
+    fontSize: 18,
+    fontWeight: FontWeight.w600,
+    color: AppColor.black,
+  );
 
   /// Weight 400
   static TextStyle regularTs14Black = TextStyle(
@@ -53,9 +59,23 @@ class AppTextstyle {
     color: AppColor.white,
   );
 
+  static TextStyle mediumTs16Grey = TextStyle(
+    fontFamily: 'Readex Pro',
+    fontSize: 16,
+    fontWeight: FontWeight.w500,
+    color: AppColor.grey,
+  );
+
   static TextStyle mediumTs16Black = TextStyle(
     fontFamily: 'Readex Pro',
     fontSize: 16,
+    fontWeight: FontWeight.w500,
+    color: AppColor.black,
+  );
+
+  static TextStyle mediumTs18Black = TextStyle(
+    fontFamily: 'Readex Pro',
+    fontSize: 18,
     fontWeight: FontWeight.w500,
     color: AppColor.black,
   );
@@ -65,5 +85,12 @@ class AppTextstyle {
     fontSize: 16,
     fontWeight: FontWeight.w500,
     color: AppColor.primary,
+  );
+
+  static TextStyle mediumTs14Green = TextStyle(
+    fontFamily: 'Readex Pro',
+    fontSize: 14,
+    fontWeight: FontWeight.w500,
+    color: AppColor.green,
   );
 }

@@ -56,3 +56,27 @@ class AppSection extends StatelessWidget {
     );
   }
 }
+
+// Setting_Section
+class AppSectionHeader extends StatelessWidget {
+  final String title;
+
+  const AppSectionHeader({super.key, required this.title});
+
+  @override
+  Widget build(BuildContext context) {
+    final double screenWidth = MediaQuery.of(context).size.width;
+    return Padding(
+      padding: EdgeInsetsGeometry.only(
+        left: (33 / 375) * screenWidth,
+        bottom: 8,
+      ),
+
+      child: AppText(
+        text: title,
+        style: AppTextstyle.regularTs14Grey,
+        textAlign: TextAlign.start,
+      ),
+    );
+  }
+}

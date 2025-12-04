@@ -40,27 +40,28 @@ class AppButton extends StatelessWidget {
     final bool isDisabled = type == AppButtonType.disabled;
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
-    Color bg =
+
+    const Color primaryColor = Color(0xFF2D63E2);
+
+    final Color bg =
         backgroundColor ??
         (type == AppButtonType.primary
-            ? const Color(0xFF2D63E2)
+            ? primaryColor
             : type == AppButtonType.secondary
-            ? Colors.white
+            ? Colors.transparent
             : Colors.grey.shade300);
 
-    Color txtColor =
+    final Color txtColor =
         textColor ??
         (type == AppButtonType.primary
             ? Colors.white
             : type == AppButtonType.secondary
-            ? const Color(0xFF2D63E2)
+            ? primaryColor
             : Colors.grey);
 
-    Color brColor =
+    final Color brColor =
         borderColor ??
-        (type == AppButtonType.secondary
-            ? const Color(0xFF2D63E2)
-            : Colors.transparent);
+        (type == AppButtonType.secondary ? primaryColor : Colors.transparent);
 
     return SizedBox(
       height: height ?? 52 / 812 * screenHeight,
@@ -84,9 +85,7 @@ class AppButton extends StatelessWidget {
                 padding: const EdgeInsets.only(right: 8),
                 child: Image.asset(leftIcon!, width: 20, height: 20),
               ),
-
             Text(text, style: TextStyle(fontSize: 16, color: txtColor)),
-
             if (rightIcon != null)
               Padding(
                 padding: const EdgeInsets.only(left: 8),
