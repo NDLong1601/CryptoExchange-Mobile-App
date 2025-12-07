@@ -56,6 +56,7 @@ class BinanceWebsocketService {
     }
   }
 
+  
   Future<void> disconnect() async {
     try {
       await _tickerWebSocketChannel?.sink.close();
