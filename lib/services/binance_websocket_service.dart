@@ -18,11 +18,13 @@ class BinanceWebsocketService {
   WebSocketChannel? _tickerWebSocketChannel;
 
   /// Delare stream variable
-  final StreamController<Coin> _coinStreamController =
-      StreamController<Coin>.broadcast();
+  final StreamController<List<Coin>> _coinStreamController =
+      StreamController<List<Coin>>.broadcast();
 
   /// Expose coin stream -> for listening
-  Stream<Coin> get coinStream => _coinStreamController.stream;
+  Stream<List<Coin>> get coinStream => _coinStreamController.stream;
+
+  final Map<String, Coin> _coinsMap = {};
 
   /// Implement methods to connect, disconnect, and listen to streams
   Future<void> connectToTickers({required List<String> symbols}) async {
@@ -46,8 +48,10 @@ class BinanceWebsocketService {
           return;
         }
         final coinData = Coin.fromJson(jsonData['data']);
-        _coinStreamController.add(coinData);
-        debugPrint('Received data: $data');
+        _coinsMap[coinData.symbol] = coinData;
+
+        _coinStreamController.add(_coinsMap.values.toList());
+        // debugPrint('Received data: $data');
       });
     } catch (e, stackTrace) {
       debugPrint('Error connecting to Binance WebSocket: $e');
@@ -56,7 +60,6 @@ class BinanceWebsocketService {
     }
   }
 
-  
   Future<void> disconnect() async {
     try {
       await _tickerWebSocketChannel?.sink.close();

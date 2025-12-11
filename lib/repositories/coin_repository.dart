@@ -7,7 +7,7 @@ class CoinRepository {
       BinanceWebsocketService();
 
   /// Expose stream of realtime coin updates
-  Stream<Coin> get coinStream => _binanceWebsocketService.coinStream;
+  Stream<List<Coin>> get coinStream => _binanceWebsocketService.coinStream;
 
   /// Subscribe to multiple coin symbols (20 coins)
   Future<void> subscribeToCoins(List<String> symbols) async {

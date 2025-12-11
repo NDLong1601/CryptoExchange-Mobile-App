@@ -1,8 +1,8 @@
 import 'package:cryptoexchange_mobile_app/components/app_button.dart';
 import 'package:cryptoexchange_mobile_app/components/app_text.dart';
 import 'package:cryptoexchange_mobile_app/components/app_textstyle.dart';
-import 'package:cryptoexchange_mobile_app/const/app_assets_path.dart';
-import 'package:cryptoexchange_mobile_app/const/app_color.dart';
+import 'package:cryptoexchange_mobile_app/core/const/app_assets_path.dart';
+import 'package:cryptoexchange_mobile_app/core/const/app_color.dart';
 import 'package:cryptoexchange_mobile_app/core/enum/enum.dart';
 import 'package:cryptoexchange_mobile_app/routes/app_route.dart';
 import 'package:cryptoexchange_mobile_app/services/storage_service.dart';
@@ -18,7 +18,6 @@ class OnboardingScreen extends StatefulWidget {
 class _OnboardingScreenState extends State<OnboardingScreen> {
   final PageController _pageController = PageController();
   int _currentPage = 0;
-  final StorageService _storageService = StorageService();
 
   @override
   void initState() {
@@ -27,7 +26,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   }
 
   Future<void> _checkOnboardingStatus() async {
-    final completed = await _storageService.isOnboardingCompleted();
+    final completed = await StorageService.instance.isOnboardingCompleted();
     if (!mounted) return;
     if (completed) {
       Navigator.pushReplacementNamed(context, AppRoute.home);
@@ -49,7 +48,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         curve: Curves.easeInOut,
       );
     } else {
-      await _storageService.setOnboardingCompleted(true);
+      // await _storageService.setOnboardingCompleted(true);
       if (!mounted) return;
 
       Navigator.pushReplacementNamed(context, AppRoute.home);

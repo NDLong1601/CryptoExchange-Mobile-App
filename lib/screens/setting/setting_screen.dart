@@ -4,8 +4,8 @@ import 'package:cryptoexchange_mobile_app/components/app_text.dart';
 import 'package:cryptoexchange_mobile_app/components/app_textstyle.dart';
 import 'package:cryptoexchange_mobile_app/components/app_tile.dart';
 import 'package:cryptoexchange_mobile_app/components/app_user_card.dart';
-import 'package:cryptoexchange_mobile_app/const/app_assets_path.dart';
-import 'package:cryptoexchange_mobile_app/const/app_color.dart';
+import 'package:cryptoexchange_mobile_app/core/const/app_assets_path.dart';
+import 'package:cryptoexchange_mobile_app/core/const/app_color.dart';
 import 'package:cryptoexchange_mobile_app/core/enum/enum.dart';
 
 // import 'package:cryptoexchange_mobile_app/providers/theme_provider.dart';

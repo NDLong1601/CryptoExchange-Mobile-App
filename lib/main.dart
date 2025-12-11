@@ -5,22 +5,49 @@ import 'package:cryptoexchange_mobile_app/services/storage_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+class User {
+  final String name;
+
+  const User({required this.name});
+
+  /// Override equality operator
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    return other is User && other.name == name;
+  }
+
+  /// Override hashCode
+  @override
+  int get hashCode => name.hashCode;
+
+  /// Example hashCode
+  /// 1316631139613
+  /// 5115710751057
+}
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  // final user = User(name: 'Alice');
+  // final user1 = User(name: 'Alice');
+
+  // print(user == user1);
+
   // Check onboarding completion
-  final storage = StorageService();
-  final completed = await storage.isOnboardingCompleted();
+  await StorageService.instance.init();
+
+  final completed = await StorageService.instance.isOnboardingCompleted();
   debugPrint('Onboarding completed status at app start: $completed');
 
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => ThemeProvider()),
-        ChangeNotifierProvider(create: (_) => CoinProvider()..startListening()),
+        ChangeNotifierProvider(create: (_) => CoinProvider()),
       ],
       child: MyApp(
-        initialRoute: completed ? AppRoute.home : AppRoute.onboarding,
+        initialRoute: completed ? AppRoute.bottomTab : AppRoute.onboarding,
       ),
     ),
   );

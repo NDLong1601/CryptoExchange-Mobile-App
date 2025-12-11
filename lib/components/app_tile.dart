@@ -2,7 +2,7 @@ import 'package:cryptoexchange_mobile_app/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:cryptoexchange_mobile_app/components/app_text.dart';
 import 'package:cryptoexchange_mobile_app/components/app_textstyle.dart';
-import 'package:cryptoexchange_mobile_app/const/app_color.dart';
+import 'package:cryptoexchange_mobile_app/core/const/app_color.dart';
 import 'package:provider/provider.dart';
 
 class AppTile extends StatelessWidget {

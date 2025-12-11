@@ -1,13 +1,13 @@
-import 'package:cryptoexchange_mobile_app/components/app_bottom_navigation_bar.dart';
 import 'package:cryptoexchange_mobile_app/components/app_card_item.dart';
 import 'package:cryptoexchange_mobile_app/components/app_section.dart';
 import 'package:cryptoexchange_mobile_app/components/app_text.dart';
 import 'package:cryptoexchange_mobile_app/components/app_textstyle.dart';
 import 'package:cryptoexchange_mobile_app/components/app_top_bar.dart';
-import 'package:cryptoexchange_mobile_app/const/app_assets_path.dart';
-import 'package:cryptoexchange_mobile_app/const/app_color.dart';
+import 'package:cryptoexchange_mobile_app/core/const/app_assets_path.dart';
+import 'package:cryptoexchange_mobile_app/core/const/app_color.dart';
 import 'package:cryptoexchange_mobile_app/providers/coin_provider.dart';
 import 'package:cryptoexchange_mobile_app/routes/app_route.dart';
+import 'package:cryptoexchange_mobile_app/screens/home/widgets/portfolio_balance_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -22,9 +22,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPersistentFrameCallback((_) {
-      context.read<CoinProvider>().startListening();
-    });
   }
 
   @override
@@ -32,29 +29,21 @@ class _HomeScreenState extends State<HomeScreen> {
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
 
-    return Scaffold(
-      backgroundColor: AppColor.bg,
-      appBar: AppTopBar(
-        leftRoute: AppRoute.home,
-        rightRoute: AppRoute.settings,
-      ),
-
-      body: ListView(
-        children: [
-          Column(
+    return SafeArea(
+      child: Scaffold(
+        // backgroundColor: AppColor.bg,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        appBar: AppTopBar(
+          leftRoute: AppRoute.home,
+          rightRoute: AppRoute.settings,
+          padding: EdgeInsets.symmetric(horizontal: 16),
+          margin: EdgeInsets.zero,
+        ),
+        body: SingleChildScrollView(
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Padding(
-                padding: EdgeInsets.only(
-                  top: screenHeight * 8 / 812,
-                  bottom: screenHeight * 4 / 812,
-                ),
-                child: AppText(
-                  text: 'Portfolio Balance',
-                  style: AppTextstyle.mediumTs16Black,
-                ),
-              ),
-
+              PortfolioBalanceWidget(),
               AppText(
                 text: "\$ 2,760.23",
                 style: AppTextstyle.semiBoldTs32Black,
@@ -149,12 +138,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ],
           ),
-        ],
-      ),
-
-      bottomNavigationBar: AppBottomNavigationBar(
-        screenHeight: screenHeight,
-        currentIndex: 0,
+        ),
       ),
     );
   }

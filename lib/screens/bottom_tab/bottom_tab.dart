@@ -1,29 +1,44 @@
-import 'package:flutter/material.dart';
 import 'package:cryptoexchange_mobile_app/core/const/app_assets_path.dart';
 import 'package:cryptoexchange_mobile_app/core/const/app_color.dart';
-import 'package:cryptoexchange_mobile_app/routes/app_route.dart';
+import 'package:cryptoexchange_mobile_app/core/extension/context_extension.dart';
+import 'package:cryptoexchange_mobile_app/screens/favorites/favorites_screen.dart';
+import 'package:cryptoexchange_mobile_app/screens/home/home_screen.dart';
+import 'package:cryptoexchange_mobile_app/screens/market/market_screen.dart';
+import 'package:cryptoexchange_mobile_app/screens/trade/trade_screen.dart';
+import 'package:cryptoexchange_mobile_app/screens/wallet/wallet_screen.dart';
+import 'package:flutter/material.dart';
 
-class AppBottomNavigationBar extends StatelessWidget {
-  final double screenHeight;
-  final int currentIndex;
+class BottomTab extends StatefulWidget {
+  const BottomTab({super.key});
 
-  const AppBottomNavigationBar({
-    super.key,
-    required this.screenHeight,
-    required this.currentIndex,
-  });
+  @override
+  State<BottomTab> createState() => _BottomTabState();
+}
+
+class _BottomTabState extends State<BottomTab> {
+  int currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: screenHeight * (78 / 812),
-      child: BottomNavigationBar(
+    return Scaffold(
+      body: IndexedStack(
+        index: currentIndex,
+        children: [
+          HomeScreen(),
+          TradeScreen(),
+          MarketScreen(),
+          FavoritesScreen(),
+          WalletScreen(),
+        ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         currentIndex: currentIndex,
         selectedItemColor: AppColor.primary,
         unselectedItemColor: AppColor.grey,
         showUnselectedLabels: true,
 
+        /// TODO: Adjust icon , text color based on selected tab
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Image.asset(AppAssetsPath.home, width: 24, height: 24),
@@ -46,25 +61,10 @@ class AppBottomNavigationBar extends StatelessWidget {
             label: 'Wallet',
           ),
         ],
-
         onTap: (index) {
-          switch (index) {
-            case 0:
-              Navigator.pushNamed(context, AppRoute.home);
-              break;
-            case 1:
-              Navigator.pushNamed(context, AppRoute.trade);
-              break;
-            case 2:
-              Navigator.pushNamed(context, AppRoute.market);
-              break;
-            case 3:
-              Navigator.pushNamed(context, AppRoute.favorite);
-              break;
-            case 4:
-              Navigator.pushNamed(context, AppRoute.wallet);
-              break;
-          }
+          setState(() {
+            currentIndex = index;
+          });
         },
       ),
     );

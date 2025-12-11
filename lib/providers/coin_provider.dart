@@ -1,8 +1,14 @@
+import 'package:cryptoexchange_mobile_app/core/const/app_data.dart';
 import 'package:cryptoexchange_mobile_app/models/coin.dart';
 import 'package:cryptoexchange_mobile_app/repositories/coin_repository.dart';
 import 'package:flutter/material.dart';
 
 class CoinProvider extends ChangeNotifier {
+  CoinProvider() {
+    /// init in constructor
+    init();
+  }
+
   final CoinRepository coinRepository = CoinRepository();
 
   bool _isLoading = false;
@@ -11,47 +17,18 @@ class CoinProvider extends ChangeNotifier {
   String _errorMessage = '';
   String get errorMessage => _errorMessage;
 
-  final Map<String, Coin> _coinsMap = {};
-  List<Coin> get coins => _coinsMap.values.toList();
+  List<Coin> _coins = [];
+  List<Coin> get coins => _coins;
 
-  Stream<Coin> get coinStream => coinRepository.coinStream;
-
-  final List<String> trackedSymbols = [
-    'btcusdt',
-    'ethusdt',
-    'bnbusdt',
-    'solusdt',
-    'adausdt',
-    'xrpusdt',
-    'dotusdt',
-    'maticusdt',
-    'dogeusdt',
-    'avaxusdt',
-    'linkusdt',
-    'ltcusdt',
-    'atomusdt',
-    'nearusdt',
-    'filusdt',
-    'uniusdt',
-    'trxusdt',
-    'xlmusdt',
-    'apeusdt',
-    'egldusdt',
-  ];
-
-  Future<void> startListening() async {
+  Future<void> init() async {
     _isLoading = true;
     notifyListeners();
     try {
-      await coinRepository.subscribeToCoins(trackedSymbols);
+      await coinRepository.subscribeToCoins(AppData.trackedSymbols);
       debugPrint('Started listening to coin updates');
       coinRepository.coinStream.listen(
         (coinData) {
-          // Update map
-          final symbol = coinData.symbol.toLowerCase();
-          _coinsMap[symbol] = coinData;
-          debugPrint('Updated coin data: $symbol -> ${coinData.price}');
-          debugPrint('Total coins tracked: ${_coinsMap.length}');
+          _coins = coinData;
           notifyListeners();
         },
         onError: (err) {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cryptoexchange_mobile_app/components/app_text.dart';
 import 'package:cryptoexchange_mobile_app/components/app_textstyle.dart';
-import 'package:cryptoexchange_mobile_app/const/app_color.dart';
+import 'package:cryptoexchange_mobile_app/core/const/app_color.dart';
 
 class MarketMoverItem extends StatelessWidget {
   final String symbol;
@@ -85,10 +85,10 @@ class MarketMoverItem extends StatelessWidget {
 
 class AppPortfolioItem extends StatelessWidget {
   final String name;
-  final String symbol; 
-  final String amount; 
-  final String? percentChange; 
-  final String iconPath; 
+  final String symbol;
+  final String amount;
+  final String? percentChange;
+  final String iconPath;
   final VoidCallback? onTap;
 
   const AppPortfolioItem({
