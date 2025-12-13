@@ -18,17 +18,22 @@ class BinanceWebsocketService {
   WebSocketChannel? _tickerWebSocketChannel;
 
   /// Delare stream variable
-  final StreamController<Coin> _coinStreamController =
-      StreamController<Coin>.broadcast();
+  final StreamController<List<Coin>> _coinStreamController =
+      StreamController<List<Coin>>.broadcast();
 
   /// Expose coin stream -> for listening
-  Stream<Coin> get coinStream => _coinStreamController.stream;
+  Stream<List<Coin>> get coinStream => _coinStreamController.stream;
+
+  final Map<String, Coin> _coinsMap = {};
 
   /// Implement methods to connect, disconnect, and listen to streams
-  /// List<String> symbols
-  Future<void> connectToTickers({required String symbol}) async {
+  Future<void> connectToTickers({required List<String> symbols}) async {
     try {
-      final String url = '$_binanceWsUrl$symbol@ticker';
+      final streamParams = symbols
+          .map((s) => "${s.toLowerCase()}@ticker")
+          .join('/');
+      final String url = "$_binanceWsUrl$streamParams";
+      debugPrint('🔌 Connecting to Binance WebSocket: $url');
       _tickerWebSocketChannel = WebSocketChannel.connect(Uri.parse(url));
 
       if (_tickerWebSocketChannel == null) {
@@ -43,13 +48,30 @@ class BinanceWebsocketService {
           return;
         }
         final coinData = Coin.fromJson(jsonData['data']);
-        _coinStreamController.add(coinData);
-        debugPrint('Received data: $data');
+        _coinsMap[coinData.symbol] = coinData;
+
+        _coinStreamController.add(_coinsMap.values.toList());
+        // debugPrint('Received data: $data');
       });
     } catch (e, stackTrace) {
       debugPrint('Error connecting to Binance WebSocket: $e');
       debugPrint("stackTrace: $stackTrace");
       // Handle connection errors
     }
+  }
+
+  Future<void> disconnect() async {
+    try {
+      await _tickerWebSocketChannel?.sink.close();
+      _tickerWebSocketChannel = null;
+      debugPrint("Binance WS disconnected.");
+    } catch (e) {
+      debugPrint("Error during WS disconnect: $e");
+    }
+  }
+
+  void dispose() {
+    _coinStreamController.close();
+    disconnect();
   }
 }

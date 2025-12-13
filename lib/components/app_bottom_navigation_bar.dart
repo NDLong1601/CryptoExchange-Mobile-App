@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:cryptoexchange_mobile_app/const/app_assets_path.dart';
-import 'package:cryptoexchange_mobile_app/const/app_color.dart';
+import 'package:cryptoexchange_mobile_app/core/const/app_assets_path.dart';
+import 'package:cryptoexchange_mobile_app/core/const/app_color.dart';
 import 'package:cryptoexchange_mobile_app/routes/app_route.dart';
 
 class AppBottomNavigationBar extends StatelessWidget {

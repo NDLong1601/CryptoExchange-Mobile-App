@@ -1,4 +1,3 @@
-// ignore: dangling_library_doc_comments
 import 'package:json_annotation/json_annotation.dart';
 part 'coin.g.dart';
 
@@ -59,4 +58,32 @@ class Coin {
 
   /// to json
   Map<String, dynamic> toJson() => _$CoinToJson(this);
+
+  /// Convert price (string -> double)
+  double get price => double.tryParse(currentPrice) ?? 0.0;
+
+  /// Convert percent change (string -> double)
+  double get percent => double.tryParse(priceChangePercent) ?? 0.0;
+
+  /// True if price increased
+  bool get isPositive => percent >= 0;
+
+  /// Price formatted, e.g. "27,154.25"
+  String get formattedPrice {
+    final p = price;
+    if (p >= 1000) {
+      return p.toStringAsFixed(2);
+    }
+    return p.toString();
+  }
+
+
+  /// Percent formatted: "+3.14%" hoặc "-1.25%"
+  String get formattedPercent {
+    final pct = percent.toStringAsFixed(2);
+    if (percent >= 0) {
+      return "+$pct%";
+    }
+    return "$pct%";
+  }
 }

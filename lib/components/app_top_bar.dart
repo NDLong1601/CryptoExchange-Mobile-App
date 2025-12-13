@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:cryptoexchange_mobile_app/const/app_assets_path.dart';
+import 'package:cryptoexchange_mobile_app/core/const/app_assets_path.dart';
 import 'package:cryptoexchange_mobile_app/routes/app_route.dart';
 
 class AppTopBar extends StatelessWidget implements PreferredSizeWidget {
@@ -50,5 +50,5 @@ class AppTopBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(60);
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
