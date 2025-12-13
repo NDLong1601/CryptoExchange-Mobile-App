@@ -1,6 +1,5 @@
 import 'package:cryptoexchange_mobile_app/core/const/app_assets_path.dart';
 import 'package:cryptoexchange_mobile_app/core/const/app_color.dart';
-import 'package:cryptoexchange_mobile_app/core/extension/context_extension.dart';
 import 'package:cryptoexchange_mobile_app/screens/favorites/favorites_screen.dart';
 import 'package:cryptoexchange_mobile_app/screens/home/home_screen.dart';
 import 'package:cryptoexchange_mobile_app/screens/market/market_screen.dart';
@@ -18,12 +17,33 @@ class BottomTab extends StatefulWidget {
 class _BottomTabState extends State<BottomTab> {
   int currentIndex = 0;
 
+  Color _iconColor(int index) {
+    return currentIndex == index ? AppColor.primary : AppColor.grey;
+  }
+
+  BottomNavigationBarItem _buildItem({
+    required int index,
+    required String iconPath,
+    required String label,
+  }) {
+    return BottomNavigationBarItem(
+      icon: Image.asset(
+        iconPath,
+        width: 24,
+        height: 24,
+        color: _iconColor(index),
+      ),
+      label: label,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: IndexedStack(
         index: currentIndex,
-        children: [
+        children: const [
           HomeScreen(),
           TradeScreen(),
           MarketScreen(),
@@ -38,29 +58,18 @@ class _BottomTabState extends State<BottomTab> {
         unselectedItemColor: AppColor.grey,
         showUnselectedLabels: true,
 
-        /// TODO: Adjust icon , text color based on selected tab
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Image.asset(AppAssetsPath.home, width: 24, height: 24),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Image.asset(AppAssetsPath.trade, width: 24, height: 24),
-            label: 'Trade',
-          ),
-          BottomNavigationBarItem(
-            icon: Image.asset(AppAssetsPath.market, width: 24, height: 24),
-            label: 'Market',
-          ),
-          BottomNavigationBarItem(
-            icon: Image.asset(AppAssetsPath.favorites, width: 24, height: 24),
+        items: [
+          _buildItem(index: 0, iconPath: AppAssetsPath.home, label: 'Home'),
+          _buildItem(index: 1, iconPath: AppAssetsPath.trade, label: 'Trade'),
+          _buildItem(index: 2, iconPath: AppAssetsPath.market, label: 'Market'),
+          _buildItem(
+            index: 3,
+            iconPath: AppAssetsPath.favorites,
             label: 'Favorites',
           ),
-          BottomNavigationBarItem(
-            icon: Image.asset(AppAssetsPath.wallet, width: 24, height: 24),
-            label: 'Wallet',
-          ),
+          _buildItem(index: 4, iconPath: AppAssetsPath.wallet, label: 'Wallet'),
         ],
+
         onTap: (index) {
           setState(() {
             currentIndex = index;

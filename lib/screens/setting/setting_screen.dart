@@ -1,16 +1,14 @@
 import 'package:cryptoexchange_mobile_app/components/app_button.dart';
+import 'package:cryptoexchange_mobile_app/components/app_listview_item.dart';
 import 'package:cryptoexchange_mobile_app/components/app_section.dart';
 import 'package:cryptoexchange_mobile_app/components/app_text.dart';
 import 'package:cryptoexchange_mobile_app/components/app_textstyle.dart';
 import 'package:cryptoexchange_mobile_app/components/app_tile.dart';
 import 'package:cryptoexchange_mobile_app/components/app_user_card.dart';
 import 'package:cryptoexchange_mobile_app/core/const/app_assets_path.dart';
-import 'package:cryptoexchange_mobile_app/core/const/app_color.dart';
 import 'package:cryptoexchange_mobile_app/core/enum/enum.dart';
-
-// import 'package:cryptoexchange_mobile_app/providers/theme_provider.dart';
+import 'package:cryptoexchange_mobile_app/screens/setting/widget/setting_card_widget.dart';
 import 'package:flutter/material.dart';
-// import 'package:provider/provider.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -22,29 +20,30 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
-    final double screenHeight = MediaQuery.of(context).size.height;
-    // final themeProvider = Provider.of<ThemeProvider>(context);
     return Scaffold(
-      backgroundColor: AppColor.bg,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
-        backgroundColor: AppColor.bg,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 0,
         centerTitle: true,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
+          icon: Icon(
+            Icons.arrow_back_ios,
+            color: Theme.of(context).iconTheme.color,
+          ),
           onPressed: () => Navigator.pop(context),
         ),
-        title: AppText(text: "Settings", style: AppTextstyle.mediumTs18Black),
+        title: AppText(text: "Settings", style: AppTextstyle.medium16(context)),
         actions: [
           IconButton(
-            icon: const Icon(Icons.search, color: Colors.black),
+            icon: Icon(Icons.search, color: Theme.of(context).iconTheme.color),
             onPressed: () {},
           ),
         ],
       ),
 
       body: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         children: [
           AppUserCard(
             name: "Dmutro",
@@ -52,37 +51,38 @@ class _SettingsScreenState extends State<SettingsScreen> {
             userId: "28954761",
             avatarPath: AppAssetsPath.avatar,
           ),
-          SizedBox(height: 16 / 912 * screenHeight),
 
-          // Privacy
-          AppSectionHeader(title: 'Privacy'),
-          AppTile(title: 'Profile', iconPath: AppAssetsPath.profile),
-          AppTile(title: 'Security', iconPath: AppAssetsPath.securityic),
+          const SizedBox(height: 16),
 
-          // Finance
-          AppSectionHeader(title: 'Finance'),
-          AppTile(title: 'History', iconPath: AppAssetsPath.history),
-          AppTile(title: 'Limits', iconPath: AppAssetsPath.limits),
+          ...settingsSections.map((section) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                AppSectionHeader(title: section.title),
+                SettingsCard(
+                  children: section.items.map((item) {
+                    switch (item.type) {
+                      case SettingsItemType.themeSwitch:
+                        return AppThemeTile(iconPath: item.iconPath);
 
-          // Account
-          AppSectionHeader(title: 'Account'),
-          AppThemeTile(iconPath: AppAssetsPath.themes),
-          AppTile(title: 'Notification', iconPath: AppAssetsPath.notifications),
+                      case SettingsItemType.normal:
+                        return AppTile(
+                          title: item.title,
+                          iconPath: item.iconPath,
+                          onTap: item.onTap,
+                        );
+                    }
+                  }).toList(),
+                ),
+              ],
+            );
+          }),
 
-          // More
-          AppSectionHeader(title: 'More'),
-          AppTile(title: 'My bonus', iconPath: AppAssetsPath.bonus),
-          AppTile(title: 'Share with friends', iconPath: AppAssetsPath.add),
-          AppTile(title: 'Support', iconPath: AppAssetsPath.support),
+          const SizedBox(height: 24),
 
-          // Button
-          SizedBox(height: 24),
-          AppButton(
-            text: "Log Out",
-            type: AppButtonType.secondary,
-            onPressed: () {},
-          ),
-          SizedBox(height: 24),
+          AppButton(text: 'Log Out', type: AppButtonType.secondary),
+
+          const SizedBox(height: 24),
         ],
       ),
     );

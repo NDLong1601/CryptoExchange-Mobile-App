@@ -138,7 +138,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       children: [
         AppText(
           text: _titles[_currentPage],
-          style: AppTextstyle.semiBoldTs32Black,
+          style: AppTextstyle.semiBold32(context),
           textAlign: TextAlign.center,
           maxLines: 2,
         ),
@@ -147,7 +147,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: AppText(
             text: _descriptions[_currentPage],
-            style: AppTextstyle.regularTs14Black,
+            style: AppTextstyle.regular14(context),
             textAlign: TextAlign.center,
             maxLines: 2,
           ),

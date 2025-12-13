@@ -1,96 +1,77 @@
-import 'package:cryptoexchange_mobile_app/core/const/app_color.dart';
 import 'package:flutter/material.dart';
 
 class AppTextstyle {
-  /// Weight 600
-  static TextStyle semiBoldTs32Black = TextStyle(
-    fontFamily: 'Readex Pro',
-    fontSize: 32,
-    fontWeight: FontWeight.w600,
-    color: AppColor.black,
-  );
-  static TextStyle semiBoldTs18Black = TextStyle(
-    fontFamily: 'Readex Pro',
-    fontSize: 18,
-    fontWeight: FontWeight.w600,
-    color: AppColor.black,
-  );
+  static const String _font = 'Readex Pro';
 
-  /// Weight 400
-  static TextStyle regularTs14Black = TextStyle(
-    fontFamily: 'Readex Pro',
-    fontSize: 14,
-    fontWeight: FontWeight.w400,
-    color: AppColor.black,
-  );
+  /// ===== SEMIBOLD =====
+  static TextStyle semiBold32(BuildContext context) => Theme.of(context)
+      .textTheme
+      .bodyLarge!
+      .copyWith(fontFamily: _font, fontSize: 32, fontWeight: FontWeight.w600);
 
-  static TextStyle regularTs16Black = TextStyle(
-    fontFamily: 'Readex Pro',
-    fontSize: 16,
-    fontWeight: FontWeight.w400,
-    color: AppColor.black,
-  );
+  static TextStyle semiBold18(BuildContext context) => Theme.of(context)
+      .textTheme
+      .bodyLarge!
+      .copyWith(fontFamily: _font, fontSize: 18, fontWeight: FontWeight.w600);
 
-  static TextStyle regularTs14Green = TextStyle(
-    fontFamily: 'Readex Pro',
-    fontSize: 14,
-    fontWeight: FontWeight.w400,
-    color: AppColor.green,
-  );
+  /// ===== MEDIUM =====
+  // Size 16
+  static TextStyle medium16(BuildContext context) => Theme.of(context)
+      .textTheme
+      .bodyMedium!
+      .copyWith(fontFamily: _font, fontSize: 16, fontWeight: FontWeight.w500);
 
-  static TextStyle regularTs14Grey = TextStyle(
-    fontFamily: 'Readex Pro',
-    fontSize: 14,
-    fontWeight: FontWeight.w400,
-    color: AppColor.grey,
-  );
-  static TextStyle regularTs12Grey = TextStyle(
-    fontFamily: 'Readex Pro',
-    fontSize: 12,
-    fontWeight: FontWeight.w400,
-    color: AppColor.grey,
-  );
+  static TextStyle medium16Primary(BuildContext context) =>
+      medium16(context).copyWith(color: Theme.of(context).colorScheme.primary);
 
-  /// Weight 500
-  static TextStyle mediumTs16White = TextStyle(
-    fontFamily: 'Readex Pro',
-    fontSize: 16,
-    fontWeight: FontWeight.w500,
-    color: AppColor.white,
-  );
+  static TextStyle medium16Green(BuildContext context) =>
+      medium16(context).copyWith(color: Theme.of(context).colorScheme.tertiary);
 
-  static TextStyle mediumTs16Grey = TextStyle(
-    fontFamily: 'Readex Pro',
-    fontSize: 16,
-    fontWeight: FontWeight.w500,
-    color: AppColor.grey,
-  );
+  // Size 18
+  static TextStyle medium18(BuildContext context) => Theme.of(context)
+      .textTheme
+      .bodyMedium!
+      .copyWith(fontFamily: _font, fontSize: 18, fontWeight: FontWeight.w500);
 
-  static TextStyle mediumTs16Black = TextStyle(
-    fontFamily: 'Readex Pro',
-    fontSize: 16,
-    fontWeight: FontWeight.w500,
-    color: AppColor.black,
-  );
+  static TextStyle medium18Primary(BuildContext context) =>
+      medium16(context).copyWith(color: Theme.of(context).colorScheme.primary);
 
-  static TextStyle mediumTs18Black = TextStyle(
-    fontFamily: 'Readex Pro',
-    fontSize: 18,
-    fontWeight: FontWeight.w500,
-    color: AppColor.black,
-  );
+  /// ===== REGULAR =====
+  // Size 14
+  static TextStyle regular14(BuildContext context) => Theme.of(context)
+      .textTheme
+      .bodySmall!
+      .copyWith(fontFamily: _font, fontSize: 14, fontWeight: FontWeight.w400);
 
-  static TextStyle mediumTs16Primary = TextStyle(
-    fontFamily: 'Readex Pro',
-    fontSize: 16,
-    fontWeight: FontWeight.w500,
-    color: AppColor.primary,
-  );
+  static TextStyle regular14Grey(BuildContext context) =>
+      regular14(context).copyWith(color: Theme.of(context).hintColor);
 
-  static TextStyle mediumTs14Green = TextStyle(
-    fontFamily: 'Readex Pro',
-    fontSize: 14,
-    fontWeight: FontWeight.w500,
-    color: AppColor.green,
-  );
+  static TextStyle regular14Green(BuildContext context) =>
+      regular14(context).copyWith(color: Colors.green);
+  static TextStyle regular14Black(BuildContext context) =>
+      regular14(context).copyWith(color: Colors.black);
+
+  // Size 12
+  static TextStyle regular12(BuildContext context) => Theme.of(context)
+      .textTheme
+      .bodySmall!
+      .copyWith(fontFamily: _font, fontSize: 12, fontWeight: FontWeight.w400);
+
+  static TextStyle regular12Grey(BuildContext context) =>
+      regular14(context).copyWith(color: Theme.of(context).hintColor);
+
+  static TextStyle regular12Green(BuildContext context) =>
+      regular14(context).copyWith(color: Colors.green);
+
+  // Size 16
+  static TextStyle regular16(BuildContext context) => Theme.of(context)
+      .textTheme
+      .bodySmall!
+      .copyWith(fontFamily: _font, fontSize: 16, fontWeight: FontWeight.w400);
+
+  static TextStyle regular16Grey(BuildContext context) =>
+      regular14(context).copyWith(color: Theme.of(context).hintColor);
+
+  static TextStyle regular16Green(BuildContext context) =>
+      regular14(context).copyWith(color: Colors.green);
 }

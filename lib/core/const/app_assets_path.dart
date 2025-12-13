@@ -16,13 +16,28 @@ class AppAssetsPath {
   static const String onboarding2 = 'assets/images/img_onboarding2.png';
   static const String onboarding3 = 'assets/images/img_onboarding3.png';
   static const String security = 'assets/images/img_security.png';
+  static const String avatar = 'assets/images/img_avatar.png';
+
   static const String solana = 'assets/images/img_solana.png';
   static const String cardano = 'assets/images/img_cardano.png';
   static const String coindefault = 'assets/images/img_coindefault.png';
   static const String xrp = 'assets/images/img_xrp.png';
-  static const String link = 'assets/images/img_chainlink.png';
+  static const String chainlink = 'assets/images/img_chainlink.png';
   static const String stellar = 'assets/images/img_stellar.png';
-  static const String avatar = 'assets/images/img_avatar.png';
+  static const String apecoin = 'assets/images/img_apecoin.png';
+
+  static const String polkadot = 'assets/images/img_polkadot.png';
+  static const String multiversx = 'assets/images/img_multiversx.png';
+  static const String uniswap = 'assets/images/img_uniswap.png';
+  static const String avalance = 'assets/images/img_avalanche.png';
+  static const String bnb = 'assets/images/img_bnb.png';
+  static const String near = 'assets/images/img_near.png';
+  static const String filecoin = 'assets/images/img_filecoin.png';
+  static const String litecoin = 'assets/images/img_litecoin.png';
+  static const String tron = 'assets/images/img_tron.png';
+  static const String cosmos = 'assets/images/img_cosmos.png';
+  static const String dogecoin = 'assets/images/img_dogecoin.png';
+
   // Icons
   static const String add = 'assets/icons/ic_add.png';
   static const String bonus = 'assets/icons/ic_bonus.png';
@@ -32,7 +47,7 @@ class AppAssetsPath {
   static const String message = 'assets/icons/ic_message.png';
   static const String notifications = 'assets/icons/ic_notifications.png';
   static const String profile = 'assets/icons/ic_profile.png';
-  static const String securityic = 'assets/icons/ic_security.png';
+  static const String securityIcon = 'assets/icons/ic_security.png';
   static const String setting = 'assets/icons/ic_setting.png';
   static const String support = 'assets/icons/ic_support.png';
   static const String themes = 'assets/icons/ic_themes.png';

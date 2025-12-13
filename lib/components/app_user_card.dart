@@ -24,8 +24,15 @@ class AppUserCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.12),
+            blurRadius: 4,
+            offset: const Offset(0, 3),
+          ),
+        ],
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -45,13 +52,13 @@ class AppUserCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                AppText(text: name, style: AppTextstyle.mediumTs16Black),
+                AppText(text: name, style: AppTextstyle.regular16(context)),
                 const SizedBox(height: 2),
-                AppText(text: email, style: AppTextstyle.regularTs14Grey),
+                AppText(text: email, style: AppTextstyle.regular14(context)),
                 const SizedBox(height: 6),
                 AppText(
                   text: "ID $userId",
-                  style: AppTextstyle.regularTs12Grey,
+                  style: AppTextstyle.regular14(context),
                 ),
               ],
             ),
@@ -74,7 +81,7 @@ class AppUserCard extends StatelessWidget {
                   const SizedBox(width: 4),
                   AppText(
                     text: "Verified",
-                    style: AppTextstyle.mediumTs14Green,
+                    style: AppTextstyle.regular14Black(context),
                   ),
                 ],
               ),

@@ -77,6 +77,7 @@ class Coin {
     return p.toString();
   }
 
+
   /// Percent formatted: "+3.14%" hoặc "-1.25%"
   String get formattedPercent {
     final pct = percent.toStringAsFixed(2);

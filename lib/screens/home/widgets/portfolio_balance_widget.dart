@@ -1,5 +1,6 @@
 import 'package:cryptoexchange_mobile_app/components/app_text.dart';
 import 'package:cryptoexchange_mobile_app/components/app_textstyle.dart';
+import 'package:cryptoexchange_mobile_app/core/const/app_assets_path.dart';
 import 'package:cryptoexchange_mobile_app/core/extension/context_extension.dart';
 import 'package:flutter/material.dart';
 
@@ -8,15 +9,39 @@ class PortfolioBalanceWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(
-        top: context.sh * 8 / 812,
-        bottom: context.sh * 4 / 812,
-      ),
-      child: AppText(
-        text: 'Portfolio Balance',
-        style: AppTextstyle.mediumTs16Black,
-      ),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Padding(
+          padding: EdgeInsets.only(
+            top: context.sh * 8 / 812,
+            bottom: context.sh * 4 / 812,
+          ),
+          child: AppText(
+            text: 'Portfolio Balance',
+            style: AppTextstyle.medium16(context),
+          ),
+        ),
+        AppText(text: "\$ 2,760.23", style: AppTextstyle.semiBold32(context)),
+
+        Padding(
+          padding: EdgeInsets.only(
+            top: context.sh * 4 / 812,
+            bottom: context.sw * 16 / 812,
+          ),
+          child: AppText(
+            text: '+2.60%',
+            style: AppTextstyle.medium16Green(context),
+          ),
+        ),
+
+        Image.asset(
+          AppAssetsPath.graph1,
+          width: double.infinity,
+          height: context.sh * 128 / 812,
+          fit: BoxFit.contain,
+        ),
+      ],
     );
   }
 }

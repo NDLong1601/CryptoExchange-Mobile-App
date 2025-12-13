@@ -1,7 +1,9 @@
+import 'package:cryptoexchange_mobile_app/core/extension/context_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:cryptoexchange_mobile_app/components/app_text.dart';
 import 'package:cryptoexchange_mobile_app/components/app_textstyle.dart';
 
+/// Section Home
 class AppSection extends StatelessWidget {
   final String title;
   final bool showMore;
@@ -20,14 +22,11 @@ class AppSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height;
-    final screenWidth = MediaQuery.of(context).size.width;
-
     final EdgeInsets defaultMargin = EdgeInsets.only(
-      top: screenHeight * 8 / 812,
-      left: screenWidth * 16 / 375,
-      right: screenWidth * 16 / 375,
-      bottom: screenHeight * 8 / 812,
+      top: context.sh * 8 / 812,
+      left: context.sw * 16 / 375,
+      right: context.sw * 16 / 375,
+      bottom: context.sh * 8 / 812,
     );
 
     return Container(
@@ -35,7 +34,7 @@ class AppSection extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          AppText(text: title, style: AppTextstyle.mediumTs16Black),
+          AppText(text: title, style: AppTextstyle.medium16(context)),
 
           if (showMore)
             GestureDetector(
@@ -48,7 +47,7 @@ class AppSection extends StatelessWidget {
               },
               child: AppText(
                 text: 'More',
-                style: AppTextstyle.mediumTs16Primary,
+                style: AppTextstyle.medium16Primary(context),
               ),
             ),
         ],
@@ -57,7 +56,7 @@ class AppSection extends StatelessWidget {
   }
 }
 
-// Setting_Section
+/// Section Setting
 class AppSectionHeader extends StatelessWidget {
   final String title;
 
@@ -65,16 +64,15 @@ class AppSectionHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double screenWidth = MediaQuery.of(context).size.width;
     return Padding(
       padding: EdgeInsetsGeometry.only(
-        left: (33 / 375) * screenWidth,
+        left: (33 / 375) * context.sw,
         bottom: 8,
       ),
 
       child: AppText(
         text: title,
-        style: AppTextstyle.regularTs14Grey,
+        style: AppTextstyle.medium16(context),
         textAlign: TextAlign.start,
       ),
     );

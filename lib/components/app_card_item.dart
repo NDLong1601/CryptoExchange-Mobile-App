@@ -1,3 +1,4 @@
+import 'package:cryptoexchange_mobile_app/core/extension/context_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:cryptoexchange_mobile_app/components/app_text.dart';
 import 'package:cryptoexchange_mobile_app/components/app_textstyle.dart';
@@ -29,13 +30,12 @@ class MarketMoverItem extends StatelessWidget {
       width: 156,
       padding: EdgeInsets.only(top: 17, left: 12, right: 12),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFE5E8EF), width: 1),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.03),
-            blurRadius: 6,
+            blurRadius: 8,
             offset: const Offset(0, 3),
           ),
         ],
@@ -51,9 +51,15 @@ class MarketMoverItem extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    AppText(text: symbol, style: AppTextstyle.regularTs16Black),
+                    AppText(
+                      text: symbol,
+                      style: AppTextstyle.regular16(context),
+                    ),
                     const SizedBox(height: 2),
-                    AppText(text: price, style: AppTextstyle.regularTs16Black),
+                    AppText(
+                      text: price,
+                      style: AppTextstyle.regular16(context),
+                    ),
                   ],
                 ),
               ),
@@ -62,10 +68,10 @@ class MarketMoverItem extends StatelessWidget {
           ),
           AppText(
             text: percentChange,
-            style: AppTextstyle.regularTs14Grey.copyWith(
+            style: AppTextstyle.regular14(context).copyWith(
               color: percentChange.startsWith('-')
                   ? AppColor.red
-                  : AppColor.green,
+                  : AppColor.darkGreen,
               fontWeight: FontWeight.w600,
             ),
           ),
@@ -74,9 +80,9 @@ class MarketMoverItem extends StatelessWidget {
             child: Image.asset(chartPath, height: 28, fit: BoxFit.contain),
           ),
           SizedBox(height: 4),
-          AppText(text: "24H Vol.", style: AppTextstyle.regularTs12Grey),
+          AppText(text: "24H Vol.", style: AppTextstyle.regular12Grey(context)),
           SizedBox(height: 4),
-          AppText(text: volume, style: AppTextstyle.regularTs12Grey),
+          AppText(text: volume, style: AppTextstyle.regular12Grey(context)),
         ],
       ),
     );
@@ -108,15 +114,15 @@ class AppPortfolioItem extends StatelessWidget {
       child: GestureDetector(
         onTap: onTap,
         child: Container(
-          width: 343 / 375 * MediaQuery.of(context).size.width,
+          width: 343 / 375 * context.sw,
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: Theme.of(context).cardColor,
             borderRadius: BorderRadius.circular(16),
             boxShadow: [
               BoxShadow(
                 color: Colors.black.withValues(alpha: 0.03),
-                blurRadius: 6,
+                blurRadius: 8,
                 offset: const Offset(0, 3),
               ),
             ],
@@ -134,21 +140,24 @@ class AppPortfolioItem extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    AppText(text: name, style: AppTextstyle.mediumTs16Black),
+                    AppText(text: name, style: AppTextstyle.medium16(context)),
                     const SizedBox(height: 2),
-                    AppText(text: symbol, style: AppTextstyle.regularTs14Grey),
+                    AppText(
+                      text: symbol,
+                      style: AppTextstyle.regular14(context),
+                    ),
                   ],
                 ),
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  AppText(text: amount, style: AppTextstyle.mediumTs16Black),
+                  AppText(text: amount, style: AppTextstyle.medium16(context)),
                   if (percentChange != null) ...[
                     const SizedBox(height: 2),
                     AppText(
                       text: percentChange!,
-                      style: AppTextstyle.regularTs14Grey.copyWith(
+                      style: AppTextstyle.regular14(context).copyWith(
                         color: percentChange!.startsWith('-')
                             ? AppColor.red
                             : AppColor.green,

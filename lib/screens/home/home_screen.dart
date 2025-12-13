@@ -1,10 +1,9 @@
 import 'package:cryptoexchange_mobile_app/components/app_card_item.dart';
 import 'package:cryptoexchange_mobile_app/components/app_section.dart';
-import 'package:cryptoexchange_mobile_app/components/app_text.dart';
-import 'package:cryptoexchange_mobile_app/components/app_textstyle.dart';
 import 'package:cryptoexchange_mobile_app/components/app_top_bar.dart';
 import 'package:cryptoexchange_mobile_app/core/const/app_assets_path.dart';
 import 'package:cryptoexchange_mobile_app/core/const/app_color.dart';
+import 'package:cryptoexchange_mobile_app/core/extension/context_extension.dart';
 import 'package:cryptoexchange_mobile_app/providers/coin_provider.dart';
 import 'package:cryptoexchange_mobile_app/routes/app_route.dart';
 import 'package:cryptoexchange_mobile_app/screens/home/widgets/portfolio_balance_widget.dart';
@@ -26,12 +25,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final double screenHeight = MediaQuery.of(context).size.height;
-    final double screenWidth = MediaQuery.of(context).size.width;
-
     return SafeArea(
       child: Scaffold(
-        // backgroundColor: AppColor.bg,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         appBar: AppTopBar(
           leftRoute: AppRoute.home,
@@ -44,39 +39,14 @@ class _HomeScreenState extends State<HomeScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               PortfolioBalanceWidget(),
-              AppText(
-                text: "\$ 2,760.23",
-                style: AppTextstyle.semiBoldTs32Black,
-              ),
-
-              Padding(
-                padding: EdgeInsets.only(
-                  top: screenHeight * 4 / 812,
-                  bottom: screenHeight * 16 / 812,
-                ),
-                child: AppText(
-                  text: '+2.60%',
-                  style: AppTextstyle.mediumTs16Black.copyWith(
-                    color: AppColor.green,
-                  ),
-                ),
-              ),
-
-              Image.asset(
-                AppAssetsPath.graph1,
-                width: double.infinity,
-                height: screenHeight * 128 / 812,
-                fit: BoxFit.contain,
-              ),
-
               AppSection(
                 title: 'Market Movers',
                 routeName: AppRoute.market,
                 margin: EdgeInsets.only(
-                  top: screenHeight * 16 / 812,
-                  left: screenWidth * 16 / 375,
-                  right: screenWidth * 16 / 375,
-                  bottom: screenHeight * 8 / 812,
+                  top: context.sh * 16 / 812,
+                  left: context.sw * 16 / 375,
+                  right: context.sw * 16 / 375,
+                  bottom: context.sh * 8 / 812,
                 ),
               ),
 
@@ -123,16 +93,34 @@ class _HomeScreenState extends State<HomeScreen> {
                 builder: (context, provider, _) {
                   final coins = provider.coins;
 
-                  return Column(
-                    children: coins.map((c) {
+                  if (provider.isLoading && coins.isEmpty) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+
+                  if (coins.isEmpty) {
+                    return const Center(child: Text("No portfolio data"));
+                  }
+
+                  return ListView.separated(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: context.sw * 16 / 375,
+                    ),
+                    itemCount: coins.length,
+                    separatorBuilder: (context, index) =>
+                        const SizedBox(height: 8),
+                    itemBuilder: (context, index) {
+                      final c = coins[index];
+
                       return AppPortfolioItem(
                         name: _readableName(c.symbol),
-                        symbol: c.symbol.replaceAll("USDT", ""),
+                        symbol: c.symbol.toUpperCase().replaceAll("USDT", ""),
                         amount: "\$${c.formattedPrice}",
                         percentChange: c.formattedPercent,
                         iconPath: _iconForSymbol(c.symbol),
                       );
-                    }).toList(),
+                    },
                   );
                 },
               ),
@@ -149,8 +137,21 @@ class _HomeScreenState extends State<HomeScreen> {
     "sol": AppAssetsPath.solana,
     "ada": AppAssetsPath.cardano,
     "xrp": AppAssetsPath.xrp,
-    "link": AppAssetsPath.link,
+    "link": AppAssetsPath.chainlink,
     "xlm": AppAssetsPath.stellar,
+    "ape": AppAssetsPath.apecoin,
+    "bnb": AppAssetsPath.bnb,
+    "dot": AppAssetsPath.polkadot,
+    "matic": AppAssetsPath.apecoin,
+    "doge": AppAssetsPath.dogecoin,
+    "avax": AppAssetsPath.avalance,
+    "ltc": AppAssetsPath.litecoin,
+    "atom": AppAssetsPath.cosmos,
+    "near": AppAssetsPath.near,
+    "fil": AppAssetsPath.filecoin,
+    "uni": AppAssetsPath.uniswap,
+    "trx": AppAssetsPath.tron,
+    "egld": AppAssetsPath.multiversx,
   };
 
   String _iconForSymbol(String rawSymbol) {
