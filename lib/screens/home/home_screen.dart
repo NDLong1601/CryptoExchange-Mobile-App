@@ -4,6 +4,8 @@ import 'package:cryptoexchange_mobile_app/components/app_top_bar.dart';
 import 'package:cryptoexchange_mobile_app/core/const/app_assets_path.dart';
 import 'package:cryptoexchange_mobile_app/core/const/app_color.dart';
 import 'package:cryptoexchange_mobile_app/core/extension/context_extension.dart';
+import 'package:cryptoexchange_mobile_app/core/utils/coin_icon_mapper.dart';
+import 'package:cryptoexchange_mobile_app/core/utils/string_helper.dart';
 import 'package:cryptoexchange_mobile_app/providers/coin_provider.dart';
 import 'package:cryptoexchange_mobile_app/routes/app_route.dart';
 import 'package:cryptoexchange_mobile_app/screens/home/widgets/portfolio_balance_widget.dart';
@@ -72,11 +74,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       itemBuilder: (context, index) {
                         final c = coins[index];
                         return MarketMoverItem(
-                          symbol: _formatSymbolPair(c.symbol),
+                          symbol: StringHelper.formatSymbolPair(c.symbol),
                           price: c.formattedPrice,
                           percentChange: c.formattedPercent,
                           volume: c.volume,
-                          iconPath: _iconForSymbol(c.symbol),
+                          iconPath: CoinIconMapper.fromSymbol(c.symbol),
                           chartPath: AppAssetsPath.graph2,
                           percentColor: c.isPositive
                               ? AppColor.green
@@ -114,11 +116,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       final c = coins[index];
 
                       return AppPortfolioItem(
-                        name: _readableName(c.symbol),
+                        name: StringHelper.readableName(c.symbol),
                         symbol: c.symbol.toUpperCase().replaceAll("USDT", ""),
                         amount: "\$${c.formattedPrice}",
                         percentChange: c.formattedPercent,
-                        iconPath: _iconForSymbol(c.symbol),
+                        iconPath: CoinIconMapper.fromSymbol(c.symbol),
                       );
                     },
                   );
@@ -129,69 +131,5 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
-  }
-
-  final Map<String, String> _coinIconMap = {
-    "btc": AppAssetsPath.bitcoin,
-    "eth": AppAssetsPath.ethereum,
-    "sol": AppAssetsPath.solana,
-    "ada": AppAssetsPath.cardano,
-    "xrp": AppAssetsPath.xrp,
-    "link": AppAssetsPath.chainlink,
-    "xlm": AppAssetsPath.stellar,
-    "ape": AppAssetsPath.apecoin,
-    "bnb": AppAssetsPath.bnb,
-    "dot": AppAssetsPath.polkadot,
-    "matic": AppAssetsPath.apecoin,
-    "doge": AppAssetsPath.dogecoin,
-    "avax": AppAssetsPath.avalance,
-    "ltc": AppAssetsPath.litecoin,
-    "atom": AppAssetsPath.cosmos,
-    "near": AppAssetsPath.near,
-    "fil": AppAssetsPath.filecoin,
-    "uni": AppAssetsPath.uniswap,
-    "trx": AppAssetsPath.tron,
-    "egld": AppAssetsPath.multiversx,
-  };
-
-  String _iconForSymbol(String rawSymbol) {
-    final symbol = rawSymbol.toLowerCase();
-
-    for (final key in _coinIconMap.keys) {
-      if (symbol.contains(key)) {
-        return _coinIconMap[key]!;
-      }
-    }
-    return AppAssetsPath.coindefault;
-  }
-
-  String _readableName(String rawSymbol) {
-    final symbol = rawSymbol.toLowerCase();
-    if (symbol.contains("btc")) return "Bitcoin";
-    if (symbol.contains("eth")) return "Ethereum";
-    if (symbol.contains("sol")) return "Solana";
-    if (symbol.contains("bnb")) return "BNB";
-    if (symbol.contains("ada")) return "Cardano";
-    if (symbol.contains("xrp")) return "XRP";
-    if (symbol.contains("dot")) return "Polkadot";
-    if (symbol.contains("matic")) return "Polygon";
-    if (symbol.contains("doge")) return "Dogecoin";
-    if (symbol.contains("avax")) return "Avalanche";
-    if (symbol.contains("link")) return "Chainlink";
-    if (symbol.contains("ltc")) return "Litecoin";
-    if (symbol.contains("atom")) return "Cosmos";
-    if (symbol.contains("near")) return "NEAR";
-    if (symbol.contains("fil")) return "Filecoin";
-    if (symbol.contains("uni")) return "Uniswap";
-    if (symbol.contains("trx")) return "TRON";
-    if (symbol.contains("xlm")) return "Stellar";
-    if (symbol.contains("ape")) return "ApeCoin";
-    if (symbol.contains("egld")) return "MultiversX";
-    return rawSymbol.toUpperCase();
-  }
-
-  String _formatSymbolPair(String raw) {
-    final s = raw.toUpperCase().replaceAll("USDT", "");
-    return "$s/USD";
   }
 }

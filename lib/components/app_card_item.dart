@@ -68,12 +68,9 @@ class MarketMoverItem extends StatelessWidget {
           ),
           AppText(
             text: percentChange,
-            style: AppTextstyle.regular14(context).copyWith(
-              color: percentChange.startsWith('-')
-                  ? AppColor.red
-                  : AppColor.darkGreen,
-              fontWeight: FontWeight.w600,
-            ),
+            style: AppTextstyle.regular14(
+              context,
+            ).copyWith(color: percentColor, fontWeight: FontWeight.w600),
           ),
           SizedBox(height: 6),
           Center(
