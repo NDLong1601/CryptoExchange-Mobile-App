@@ -1,11 +1,12 @@
 import 'package:intl/intl.dart';
 
 class FormatHelper {
-  static final NumberFormat _priceFormatter =
-      NumberFormat('#,##0.00', 'en_US');
+  /// TODO: continue adding more format helpers as needed
+  static final NumberFormat _priceFormatter = NumberFormat('#,##0.00', 'en_US');
 
-  static final NumberFormat _volumeFormatter =
-      NumberFormat.compact(locale: 'en_US');
+  static final NumberFormat _volumeFormatter = NumberFormat.compact(
+    locale: 'en_US',
+  );
 
   /// ===== PRICE =====
   /// 30113.8 -> 30,113.80

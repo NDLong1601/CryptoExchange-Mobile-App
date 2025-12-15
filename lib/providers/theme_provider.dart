@@ -1,9 +1,7 @@
+import 'package:cryptoexchange_mobile_app/services/storage_service.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class ThemeProvider extends ChangeNotifier {
-  static const String _key = "isDarkMode";
-
   bool _isDarkMode = false;
   bool get isDarkMode => _isDarkMode;
 
@@ -12,19 +10,15 @@ class ThemeProvider extends ChangeNotifier {
   }
 
   Future<void> _init() async {
-    final prefs = await SharedPreferences.getInstance();
-    _isDarkMode = prefs.getBool(_key) ?? false;
+    _isDarkMode = await StorageService.instance.getThemeMode();
     notifyListeners();
   }
 
   /// Toggle theme
   Future<void> toggleTheme() async {
     _isDarkMode = !_isDarkMode;
-
     notifyListeners();
-
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool(_key, _isDarkMode);
+    await StorageService.instance.setThemeMode(_isDarkMode);
   }
 
   ThemeMode get themeMode => _isDarkMode ? ThemeMode.dark : ThemeMode.light;

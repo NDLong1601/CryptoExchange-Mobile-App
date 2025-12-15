@@ -16,6 +16,7 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
+        /// Global Providers ( global state )
         ChangeNotifierProvider(create: (_) => ThemeProvider()),
         ChangeNotifierProvider(create: (_) => CoinProvider()),
       ],

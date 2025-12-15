@@ -2,7 +2,8 @@ import 'package:cryptoexchange_mobile_app/components/app_textstyle.dart';
 import 'package:cryptoexchange_mobile_app/core/const/app_color.dart';
 import 'package:cryptoexchange_mobile_app/core/extension/context_extension.dart';
 import 'package:cryptoexchange_mobile_app/core/utils/format_helpper.dart';
-import 'package:cryptoexchange_mobile_app/providers/trade_ticker_provider.dart';
+import 'package:cryptoexchange_mobile_app/models/coin.dart';
+import 'package:cryptoexchange_mobile_app/providers/coin_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -11,11 +12,19 @@ class TradeRealtimeHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<TradeTickerProvider>(
-      builder: (_, p, _) {
-        final pair = '${p.symbol.toUpperCase().replaceAll('USDT', '')}/USDT';
+    return Consumer<CoinProvider>(
+      builder: (_, coinProvider, _) {
+        // Coin coinSelected = coinProvider.coinSelected;
+        Coin coinSelected = coinProvider.coins.firstWhere(
+          (coin) =>
+              coin.symbol.toLowerCase() ==
+              coinProvider.selectedSymbol.toLowerCase(),
+          orElse: () => coinProvider.defaultCoin(),
+        );
+        final pair =
+            '${coinSelected.symbol.toUpperCase().replaceAll('USDT', '')}/USDT';
 
-        final percent = double.tryParse(p.percent) ?? 0;
+        final percent = double.tryParse(coinSelected.priceChangePercent) ?? 0;
         final percentColor = percent >= 0
             ? (context.theme.brightness == Brightness.dark
                   ? const Color(0xFF7CFFB2)
@@ -24,7 +33,7 @@ class TradeRealtimeHeader extends StatelessWidget {
                   ? const Color(0xFFFF8A8A)
                   : AppColor.red);
 
-        if (p.isLoading) {
+        if (coinProvider.isLoading) {
           return Row(
             children: [
               Text(pair, style: context.theme.textTheme.bodyLarge),
@@ -38,45 +47,87 @@ class TradeRealtimeHeader extends StatelessWidget {
           );
         }
 
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Text(pair, style: context.theme.textTheme.bodyLarge),
-                const SizedBox(width: 4),
-                Icon(
-                  Icons.arrow_drop_down,
-                  color: context.theme.iconTheme.color,
-                ),
-              ],
-            ),
+        return GestureDetector(
+          onTap: () {
+            /// show botom sheet to select coin from list coins
+            showModalBottomSheet(
+              context: context,
+              isScrollControlled: true,
+              builder: (context) {
+                return SizedBox(
+                  height: context.sh * 0.75,
 
-            const SizedBox(height: 6),
-            RichText(
-              text: TextSpan(
+                  /// TODO: improve UI of bottom sheet
+                  /// Implement check icon for selected coin
+                  child: Consumer<CoinProvider>(
+                    builder: (_, coinProvider, _) {
+                      return ListView.builder(
+                        itemCount: coinProvider.coins.length,
+                        itemBuilder: (context, index) {
+                          final coin = coinProvider.coins[index];
+                          return ListTile(
+                            title: Text(
+                              coin.symbol.toUpperCase(),
+                              style: context.theme.textTheme.bodyMedium,
+                            ),
+                            subtitle: Text(
+                              'Price: ${FormatHelper.price(coin.price)} ≈\$${FormatHelper.approxUsd(coin.price)}',
+                              style: context.theme.textTheme.bodySmall,
+                            ),
+                            onTap: () {
+                              coinProvider.selectCoinBySymbol(coin.symbol);
+                              Navigator.pop(context);
+                            },
+                          );
+                        },
+                      );
+                    },
+                  ),
+                );
+              },
+            );
+          },
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
                 children: [
-                  TextSpan(
-                    text : FormatHelper.price(p.price),
-                    style: AppTextstyle.regular16(
-                      context,
-                    ).copyWith(color: percentColor),
-                  ),
-                  TextSpan(
-                    text: ' ≈\$${FormatHelper.approxUsd(p.price)}',
-                    style: AppTextstyle.regular14Grey(context),
-                  ),
-                  TextSpan(
-                    text:
-                        FormatHelper.percent(p.percent),
-                    style: AppTextstyle.regular14(
-                      context,
-                    ).copyWith(color: percentColor),
+                  Text(pair, style: context.theme.textTheme.bodyLarge),
+                  const SizedBox(width: 4),
+                  Icon(
+                    Icons.arrow_drop_down,
+                    color: context.theme.iconTheme.color,
                   ),
                 ],
               ),
-            ),
-          ],
+
+              const SizedBox(height: 6),
+              RichText(
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                      text: FormatHelper.price(coinSelected.price),
+                      style: AppTextstyle.regular16(
+                        context,
+                      ).copyWith(color: percentColor),
+                    ),
+                    TextSpan(
+                      text: ' ≈\$${FormatHelper.approxUsd(coinSelected.price)}',
+                      style: AppTextstyle.regular14Grey(context),
+                    ),
+                    TextSpan(
+                      text: FormatHelper.percent(
+                        coinSelected.priceChangePercent,
+                      ),
+                      style: AppTextstyle.regular14(
+                        context,
+                      ).copyWith(color: percentColor),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         );
       },
     );

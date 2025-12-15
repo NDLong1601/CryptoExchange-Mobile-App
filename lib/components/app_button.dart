@@ -7,8 +7,8 @@ class AppButton extends StatelessWidget {
   final VoidCallback? onPressed;
   final AppButtonType type;
 
-  final String? leftIcon;
-  final String? rightIcon;
+  final String? prefixIconPath;
+  final String? suffixIconPath;
 
   final double? height;
   final double? width;
@@ -21,8 +21,8 @@ class AppButton extends StatelessWidget {
     required this.text,
     required this.type,
     this.onPressed,
-    this.leftIcon,
-    this.rightIcon,
+    this.prefixIconPath,
+    this.suffixIconPath,
     this.height,
     this.width,
     this.radius = 12,
@@ -31,8 +31,7 @@ class AppButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final primary = theme.colorScheme.primary;
+    final primary = context.colorScheme.primary;
 
     late final Color backgroundColor;
     late final Color textColor;
@@ -52,8 +51,8 @@ class AppButton extends StatelessWidget {
         break;
 
       case AppButtonType.disabled:
-        backgroundColor = theme.disabledColor.withValues(alpha: 0.15);
-        textColor = theme.disabledColor;
+        backgroundColor = context.theme.disabledColor.withValues(alpha: 0.15);
+        textColor = context.theme.disabledColor;
         borderColor = Colors.transparent;
         break;
     }
@@ -79,16 +78,18 @@ class AppButton extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
-            if (leftIcon != null)
+            if (prefixIconPath != null)
               Padding(
                 padding: const EdgeInsets.only(right: 8),
                 child: Image.asset(
-                  leftIcon!,
+                  prefixIconPath!,
                   width: 20,
                   height: 20,
                   color: textColor,
                 ),
               ),
+
+            /// TODO: text overflow handling
             Text(
               text,
               style: TextStyle(
@@ -97,11 +98,11 @@ class AppButton extends StatelessWidget {
                 color: textColor,
               ),
             ),
-            if (rightIcon != null)
+            if (suffixIconPath != null)
               Padding(
                 padding: const EdgeInsets.only(left: 8),
                 child: Image.asset(
-                  rightIcon!,
+                  suffixIconPath!,
                   width: 20,
                   height: 20,
                   color: textColor,

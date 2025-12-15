@@ -14,8 +14,11 @@ class StorageService {
 
   /// define key
   static const String _keyOnboardingCompleted = 'onboarding_completed';
+  static const String _keyThemeMode = 'theme_mode';
 
   late SharedPreferences _prefs;
+
+  /// Stream Controllers -> handle realtime data changes from favorite coins
 
   /// Functions
   Future<void> init() async {
@@ -32,4 +35,18 @@ class StorageService {
   Future<bool> isOnboardingCompleted() async {
     return _prefs.getBool(_keyOnboardingCompleted) ?? false;
   }
+
+  /// set theme mode
+  Future<void> setThemeMode(bool isDarkMode) async {
+    await _prefs.setBool(_keyThemeMode, isDarkMode);
+  }
+
+  /// get theme mode
+  Future<bool> getThemeMode() async {
+    return _prefs.getBool(_keyThemeMode) ?? false;
+  }
+
+  /// save list favorite coins
+
+  /// get list favorite coins
 }

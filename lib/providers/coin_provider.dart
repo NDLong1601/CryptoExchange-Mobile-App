@@ -19,6 +19,9 @@ class CoinProvider extends ChangeNotifier {
   List<Coin> _coins = [];
   List<Coin> get coins => _coins;
 
+  String _selectedSymbol = 'btcusdt';
+  String get selectedSymbol => _selectedSymbol;
+
   Future<void> init() async {
     _isLoading = true;
     notifyListeners();
@@ -44,6 +47,35 @@ class CoinProvider extends ChangeNotifier {
       debugPrint('Error starting coin listener: $_errorMessage');
       notifyListeners();
     }
+  }
+
+  /// function to get default coin
+  /// default is BTCUSDT (symbol: btcusdt)
+  Coin defaultCoin() {
+    if (_coins.isEmpty) {
+      debugPrint('No coins available, returning a placeholder coin');
+    }
+    return _coins.firstWhere(
+      (coin) => coin.symbol.toLowerCase() == 'btcusdt',
+      orElse: () => Coin(
+        symbol: 'btcusdt',
+        priceChangePercent: '0',
+        currentPrice: '0',
+        volume: '0',
+      ),
+    );
+  }
+
+  // /// function to select a coin
+  // void selectCoin(Coin coin) {
+  //   _coinSelected = coin;
+  //   notifyListeners();
+  // }
+
+  /// change selected coin by symbol
+  void selectCoinBySymbol(String symbol) {
+    _selectedSymbol = symbol.toLowerCase();
+    notifyListeners();
   }
 
   void stopListening() {

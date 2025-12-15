@@ -24,11 +24,14 @@ class _TradeScreenState extends State<TradeScreen> {
         elevation: 0,
         centerTitle: true,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios, color: context.theme.iconTheme.color),
+          icon: Icon(
+            Icons.arrow_back_ios,
+            color: context.theme.iconTheme.color,
+          ),
           onPressed: () => Navigator.pop(context),
         ),
         title: Text('Trade', style: context.theme.textTheme.bodyLarge),
-        actions: const [Icon(Icons.library_add_sharp), SizedBox(width: 12)],
+        actions: const [Icon(Icons.favorite_outline), SizedBox(width: 12)],
       ),
       body: SafeArea(
         child: Padding(

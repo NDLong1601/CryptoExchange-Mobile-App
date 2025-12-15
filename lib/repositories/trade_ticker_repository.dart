@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:cryptoexchange_mobile_app/models/ticker.dart';
-import 'package:cryptoexchange_mobile_app/services/trade_ticker_websocket_service.dart';
+import 'package:cryptoexchange_mobile_app/services/orderbook_websocket_service.dart';
 import 'package:flutter/cupertino.dart';
 
 class TradeTickerRepository {

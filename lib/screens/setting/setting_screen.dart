@@ -18,6 +18,7 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
+  final String email = 'dmutro@gmail.com';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,6 +48,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
         children: [
           AppUserCard(
             name: "Dmutro",
+
+            /// masked email
+            /// TODO: implement email masking function -> later can use it globally
             email: "to***@gmail.com",
             userId: "28954761",
             avatarPath: AppAssetsPath.avatar,
@@ -80,7 +84,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
           const SizedBox(height: 24),
 
-          AppButton(text: 'Log Out', type: AppButtonType.secondary),
+          AppButton(
+            text: 'Log Out',
+            type: AppButtonType.secondary,
+            onPressed: () {},
+          ),
 
           const SizedBox(height: 24),
         ],

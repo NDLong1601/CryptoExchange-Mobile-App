@@ -18,7 +18,7 @@ class TradeTickerWebsocketService {
   Future<void> connect({required String symbol}) async {
     try {
       final s = symbol.toLowerCase();
-      await disconnect;
+      disconnect;
       final url = '$_tickerWsUrl$s@ticker';
       debugPrint('Ticker WS connect: $url');
       _channel = WebSocketChannel.connect(Uri.parse(url));

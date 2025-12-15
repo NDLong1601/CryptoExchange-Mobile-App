@@ -44,4 +44,6 @@ class PortfolioBalanceWidget extends StatelessWidget {
       ],
     );
   }
+
+  /// format number to currency string
 }
