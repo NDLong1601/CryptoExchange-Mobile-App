@@ -18,6 +18,7 @@ class AppAssetsPath {
   static const String security = 'assets/images/img_security.png';
   static const String avatar = 'assets/images/img_avatar.png';
 
+  /// Image coins
   static const String solana = 'assets/images/img_solana.png';
   static const String cardano = 'assets/images/img_cardano.png';
   static const String coindefault = 'assets/images/img_coindefault.png';
@@ -25,7 +26,6 @@ class AppAssetsPath {
   static const String chainlink = 'assets/images/img_chainlink.png';
   static const String stellar = 'assets/images/img_stellar.png';
   static const String apecoin = 'assets/images/img_apecoin.png';
-
   static const String polkadot = 'assets/images/img_polkadot.png';
   static const String multiversx = 'assets/images/img_multiversx.png';
   static const String uniswap = 'assets/images/img_uniswap.png';
@@ -56,6 +56,7 @@ class AppAssetsPath {
   static const String trade = 'assets/icons/ic_trade.png';
   static const String favorites = 'assets/icons/ic_favorites.png';
   static const String market = 'assets/icons/ic_market.png';
+  static const String order = 'assets/icons/ic_order.png';
 
   final List<String> onboardingImages = [
     AppAssetsPath.onboarding1,

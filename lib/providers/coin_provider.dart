@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 
 class CoinProvider extends ChangeNotifier {
   CoinProvider() {
-    /// init in constructor
     init();
   }
 
