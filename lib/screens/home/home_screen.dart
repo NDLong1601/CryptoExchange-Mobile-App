@@ -5,7 +5,7 @@ import 'package:cryptoexchange_mobile_app/core/const/app_assets_path.dart';
 import 'package:cryptoexchange_mobile_app/core/const/app_color.dart';
 import 'package:cryptoexchange_mobile_app/core/extension/context_extension.dart';
 import 'package:cryptoexchange_mobile_app/core/utils/coin_icon_mapper.dart';
-import 'package:cryptoexchange_mobile_app/core/utils/string_helpper.dart';
+import 'package:cryptoexchange_mobile_app/core/utils/string_helper.dart';
 import 'package:cryptoexchange_mobile_app/providers/coin_provider.dart';
 import 'package:cryptoexchange_mobile_app/routes/app_route.dart';
 import 'package:cryptoexchange_mobile_app/screens/home/widgets/portfolio_balance_widget.dart';

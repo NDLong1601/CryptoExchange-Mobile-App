@@ -2,7 +2,7 @@
 import 'package:cryptoexchange_mobile_app/components/app_text.dart';
 import 'package:cryptoexchange_mobile_app/core/const/app_assets_path.dart';
 import 'package:cryptoexchange_mobile_app/core/enum/enum.dart';
-import 'package:cryptoexchange_mobile_app/core/utils/format_helpper.dart';
+import 'package:cryptoexchange_mobile_app/core/utils/format_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

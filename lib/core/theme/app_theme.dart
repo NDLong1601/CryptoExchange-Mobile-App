@@ -63,7 +63,7 @@ class AppTheme {
     // Icon
     iconTheme: IconThemeData(color: AppColor.grey),
 
-    primaryColor: AppColor.white,
+    primaryColor: AppColor.primary,
 
     /// Text
     textTheme: TextTheme(

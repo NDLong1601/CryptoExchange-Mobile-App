@@ -56,7 +56,7 @@ class AppTabBar extends StatelessWidget {
                     child: Container(
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
-                        color: selected ? AppColor.primary : Colors.transparent,
+                        color: selected ? context.colorScheme.primary : Colors.transparent,
                         borderRadius: BorderRadius.circular(radius),
                       ),
                       child: Text(

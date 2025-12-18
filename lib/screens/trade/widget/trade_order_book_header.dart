@@ -14,11 +14,10 @@ class OrderBookHeaderControls extends StatefulWidget {
 
 class _OrderBookHeaderControlsState extends State<OrderBookHeaderControls> {
   int _sideIndex = 0;
-
+  String orderBkNo = '10';
+  String unit = '0.00001';
   @override
   Widget build(BuildContext context) {
-    String orderBkNo = '10';
-    String unit = '0.00001';
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -58,6 +57,7 @@ class _OrderBookHeaderControlsState extends State<OrderBookHeaderControls> {
             ),
           ],
         ),
+
         /// Buy / Sell
         SizedBox(
           width: context.sw * 188 / 375,

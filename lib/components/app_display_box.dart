@@ -1,4 +1,4 @@
-import 'package:cryptoexchange_mobile_app/core/const/app_color.dart';
+import 'package:cryptoexchange_mobile_app/components/app_boxshadow.dart';
 import 'package:flutter/material.dart';
 import 'package:cryptoexchange_mobile_app/core/extension/context_extension.dart';
 
@@ -28,11 +28,10 @@ class AppDisplayBox extends StatelessWidget {
         color: theme.cardColor,
         borderRadius: BorderRadius.circular(8),
         boxShadow: [
-          BoxShadow(
-            offset: Offset(0, 3),
+          AppBoxShadow.custom(
+            y: 3,
             blurRadius: 4,
-            spreadRadius: 0,
-            color: AppColor.black.withValues(alpha: 0.12),
+            opacity: 0.12,
           ),
         ],
       ),

@@ -1,7 +1,7 @@
 import 'package:cryptoexchange_mobile_app/components/app_textstyle.dart';
 import 'package:cryptoexchange_mobile_app/core/const/app_color.dart';
 import 'package:cryptoexchange_mobile_app/core/extension/context_extension.dart';
-import 'package:cryptoexchange_mobile_app/core/utils/format_helpper.dart';
+import 'package:cryptoexchange_mobile_app/core/utils/format_helper.dart';
 import 'package:cryptoexchange_mobile_app/models/coin.dart';
 import 'package:cryptoexchange_mobile_app/providers/coin_provider.dart';
 import 'package:flutter/material.dart';

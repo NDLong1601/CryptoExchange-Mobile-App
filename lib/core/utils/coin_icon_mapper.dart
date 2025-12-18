@@ -12,7 +12,7 @@ class CoinIconMapper {
     'ape': AppAssetsPath.ape,
     'bnb': AppAssetsPath.bnb,
     'dot': AppAssetsPath.polkadot,
-    'matic': AppAssetsPath.matic,
+    'matic': AppAssetsPath.coindefault,
     'doge': AppAssetsPath.dogecoin,
     'avax': AppAssetsPath.avalance,
     'ltc': AppAssetsPath.litecoin,
