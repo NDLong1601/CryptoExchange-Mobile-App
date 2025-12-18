@@ -57,7 +57,7 @@ class AppSelectBox extends StatelessWidget {
           }).toList();
         },
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 8),
           decoration: BoxDecoration(
             color: context.theme.cardColor,
             borderRadius: BorderRadius.circular(8),

@@ -1,5 +1,6 @@
 import 'package:cryptoexchange_mobile_app/components/app_display_box.dart';
 import 'package:cryptoexchange_mobile_app/components/app_select_box.dart';
+import 'package:cryptoexchange_mobile_app/components/app_tab_bar.dart';
 import 'package:cryptoexchange_mobile_app/components/app_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:cryptoexchange_mobile_app/core/extension/context_extension.dart';
@@ -31,6 +32,7 @@ class _TradeOrderFormState extends State<TradeOrderForm> {
   late TextEditingController _amountCtrl;
   String _orderType = 'Limit';
   String _displayAmount = '0';
+  int _sideIndex = 0;
 
   @override
   void initState() {
@@ -55,6 +57,21 @@ class _TradeOrderFormState extends State<TradeOrderForm> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        /// Buy / Sell
+        SizedBox(
+          width: context.sw * 188 / 375,
+          height: context.sh * 32 / 812,
+          child: AppTabBar(
+            tabs: const ['Buy', 'Sell'],
+            currentIndex: _sideIndex,
+            onChanged: (i) {
+              setState(() {
+                _sideIndex = i;
+              });
+            },
+          ),
+        ),
+        SizedBox(height: 24),
         AppSelectBox(
           value: _orderType,
           options: const ['Limit', 'Market'],
@@ -80,7 +97,7 @@ class _TradeOrderFormState extends State<TradeOrderForm> {
           hintText: ' Price',
           suffix: widget.quote,
           width: 188 / 375 * context.sw,
-          height: 40 / 812 * context.sh,
+          height: 32 / 812 * context.sh,
           onPlus: () {},
           onMinus: () {},
         ),
@@ -93,7 +110,7 @@ class _TradeOrderFormState extends State<TradeOrderForm> {
           hintText: ' Amount',
           suffix: 'BTC',
           width: 188 / 375 * context.sw,
-          height: 40 / 812 * context.sh,
+          height: 32 / 812 * context.sh,
           onPlus: () {},
           onMinus: () {},
         ),
@@ -140,7 +157,7 @@ class _TradeOrderFormState extends State<TradeOrderForm> {
           value: _displayAmount, // ví dụ: '0'
           suffix: widget.quote, // 'USDT'
           width: 188 / 375 * context.sw,
-          height: 40 / 812 * context.sh,
+          height: 32 / 812 * context.sh,
         ),
         SizedBox(height: 16),
 

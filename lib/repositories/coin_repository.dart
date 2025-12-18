@@ -3,21 +3,24 @@ import 'package:cryptoexchange_mobile_app/services/binance_websocket_service.dar
 import 'package:flutter/material.dart';
 
 class CoinRepository {
-  final BinanceWebsocketService _binanceWebsocketService =
-      BinanceWebsocketService();
+  final BinanceWebsocketService binanceWebsocketService;
+
+  CoinRepository({required this.binanceWebsocketService});
 
   /// Expose stream of realtime coin updates
-  Stream<List<Coin>> get coinStream => _binanceWebsocketService.coinStream;
+  Stream<List<Coin>> get coinStream => binanceWebsocketService.coinStream;
+
+  List<Coin> get currentCoins => binanceWebsocketService.currentCoins;
 
   /// Subscribe to multiple coin symbols (20 coins)
   Future<void> subscribeToCoins(List<String> symbols) async {
-    await _binanceWebsocketService.connectToTickers(symbols: symbols);
+    await binanceWebsocketService.connectToTickers(symbols: symbols);
     debugPrint('🔌 Subscribed to Binance streams: $symbols');
   }
 
   /// Disconnect WebSocket (optional)
   void disconnect() {
-    _binanceWebsocketService.disconnect();
+    binanceWebsocketService.disconnect();
     debugPrint('Disconnected from Binance WebSocket');
   }
 }

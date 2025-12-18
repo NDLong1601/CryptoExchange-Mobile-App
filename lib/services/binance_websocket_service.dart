@@ -26,6 +26,8 @@ class BinanceWebsocketService {
 
   final Map<String, Coin> _coinsMap = {};
 
+  List<Coin> get currentCoins => _coinsMap.values.toList();
+
   /// Implement methods to connect, disconnect, and listen to streams
   Future<void> connectToTickers({required List<String> symbols}) async {
     try {

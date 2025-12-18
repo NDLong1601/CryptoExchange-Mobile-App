@@ -2,11 +2,11 @@ import 'package:cryptoexchange_mobile_app/components/app_tab_bar.dart';
 import 'package:cryptoexchange_mobile_app/core/const/app_assets_path.dart';
 import 'package:cryptoexchange_mobile_app/core/extension/context_extension.dart';
 import 'package:cryptoexchange_mobile_app/providers/coin_provider.dart';
+import 'package:cryptoexchange_mobile_app/providers/favorite_provider.dart';
 import 'package:cryptoexchange_mobile_app/providers/orderbook_provider.dart';
 import 'package:cryptoexchange_mobile_app/routes/app_route.dart';
 import 'package:cryptoexchange_mobile_app/screens/trade/widget/open_orders_section.dart';
 import 'package:cryptoexchange_mobile_app/screens/trade/widget/trade_order_book.dart';
-import 'package:cryptoexchange_mobile_app/screens/trade/widget/trade_order_book_header.dart';
 import 'package:cryptoexchange_mobile_app/screens/trade/widget/trade_order_form.dart';
 import 'package:cryptoexchange_mobile_app/screens/trade/widget/trade_realtime_header.dart';
 import 'package:flutter/material.dart';
@@ -67,7 +67,26 @@ class _TradeScreenState extends State<TradeScreen> {
           onPressed: () => Navigator.pop(context),
         ),
         title: Text('Trade', style: context.theme.textTheme.bodyLarge),
-        actions: const [Icon(Icons.favorite_outline), SizedBox(width: 12)],
+        actions: [
+          Consumer<FavoriteProvider>(
+            builder: (_, favoriteProvider, _) {
+              return InkWell(
+                onTap: () {
+                  favoriteProvider.toggleFavoriteToken(
+                    context.read<CoinProvider>().selectedSymbol,
+                  );
+                },
+                child: Icon(
+                  Icons.favorite_outline,
+                  color: context.watch<CoinProvider>().isFavorite
+                      ? Colors.yellow
+                      : Colors.black,
+                ),
+              );
+            },
+          ),
+          SizedBox(width: 12),
+        ],
       ),
       body: SingleChildScrollView(
         child: SafeArea(
@@ -98,7 +117,6 @@ class _TradeScreenState extends State<TradeScreen> {
                     ],
                   ),
                 ),
-                OrderBookHeaderControls(),
                 SizedBox(height: 12),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

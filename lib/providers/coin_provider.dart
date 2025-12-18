@@ -1,14 +1,19 @@
 import 'package:cryptoexchange_mobile_app/core/const/app_data.dart';
 import 'package:cryptoexchange_mobile_app/models/coin.dart';
 import 'package:cryptoexchange_mobile_app/repositories/coin_repository.dart';
+import 'package:cryptoexchange_mobile_app/repositories/favorite_repository.dart';
 import 'package:flutter/material.dart';
 
 class CoinProvider extends ChangeNotifier {
-  CoinProvider() {
+  CoinProvider({
+    required this.coinRepository,
+    required this.favoriteRepository,
+  }) {
     init();
   }
 
-  final CoinRepository coinRepository = CoinRepository();
+  final CoinRepository coinRepository;
+  final FavoriteRepository favoriteRepository;
 
   bool _isLoading = false;
   bool get isLoading => _isLoading;
@@ -21,6 +26,9 @@ class CoinProvider extends ChangeNotifier {
 
   String _selectedSymbol = 'btcusdt';
   String get selectedSymbol => _selectedSymbol;
+
+  bool get isFavorite =>
+      favoriteRepository.getFavoriteTokens().contains(_selectedSymbol);
 
   Future<void> init() async {
     _isLoading = true;
