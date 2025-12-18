@@ -48,7 +48,9 @@ class _FavoritesScreenState extends State<FavoritesScreen>
                     children: [
                       SlidableAction(
                         padding: EdgeInsets.zero,
-                        onPressed: (_) {},
+                        onPressed: (_) {
+                          favoriteProvider.toggleFavoriteToken(coin.symbol);
+                        },
                         backgroundColor: Colors.red,
                         foregroundColor: Colors.white,
                         icon: Icons.delete,
