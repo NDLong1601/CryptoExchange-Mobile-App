@@ -7,12 +7,9 @@ class OrderBookProvider extends ChangeNotifier {
   final OrderBookRepository repository;
 
   OrderBookProvider(this.repository);
-
-  // List bids = [];
-  // List asks = [];
-
   List<OrderLevel> bids = [];
   List<OrderLevel> asks = [];
+  // List asks = [];
 
   bool _isLoading = false;
   bool get isLoading => _isLoading;

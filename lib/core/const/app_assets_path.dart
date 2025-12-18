@@ -25,7 +25,8 @@ class AppAssetsPath {
   static const String xrp = 'assets/images/img_xrp.png';
   static const String chainlink = 'assets/images/img_chainlink.png';
   static const String stellar = 'assets/images/img_stellar.png';
-  static const String apecoin = 'assets/images/img_apecoin.png';
+  static const String matic = 'assets/images/img_apecoin.png';
+  static const String ape = 'assets/images/img_apecoin.png';
   static const String polkadot = 'assets/images/img_polkadot.png';
   static const String multiversx = 'assets/images/img_multiversx.png';
   static const String uniswap = 'assets/images/img_uniswap.png';

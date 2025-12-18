@@ -1,10 +1,6 @@
-import 'package:json_annotation/json_annotation.dart';
-
 class OrderLevel {
-  @JsonKey(name: 'b')
   final double price;
 
-  @JsonKey(name: 'a')
   final double amount;
 
   OrderLevel({

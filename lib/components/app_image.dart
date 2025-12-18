@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class AppImage extends StatelessWidget {
   final String imagePath;
@@ -7,18 +8,32 @@ class AppImage extends StatelessWidget {
   final double? height;
 
   const AppImage({
-    required this.imagePath,
     super.key,
+    required this.imagePath,
     this.color,
     this.width,
     this.height,
   });
-
   @override
   Widget build(BuildContext context) {
-    /// png image ( end with .png, .jpg, .jpeg, etc ) -> use Image.asset
-    /// svg image ( end with .svg ) -> use SvgPicture.asset
-    /// network image ( start with http or https ) -> use Image.network
-    return const Placeholder();
+    if (imagePath.startsWith('http')) {
+      return Image.network(
+        imagePath,
+        width: width,
+        height: height,
+        color: color,
+      );
+    } else if (imagePath.endsWith('.svg')) {
+      return SvgPicture.asset(
+        imagePath,
+        width: width,
+        height: height,
+        colorFilter: color != null
+            ? ColorFilter.mode(color!, BlendMode.srcIn)
+            : null,
+      );
+    } else {
+      return Image.asset(imagePath, width: width, height: height, color: color);
+    }
   }
 }

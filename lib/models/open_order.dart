@@ -22,7 +22,7 @@ class OpenOrder {
 
   double get total => price * amount;
 
-    String get pairDisplay => FormatHelper.symbolPair(symbol);
+  String get pairDisplay => FormatHelper.symbolPair(symbol);
 
   String get sideLabel => side == OrderSide.sell ? 'Sell' : 'Buy';
 
