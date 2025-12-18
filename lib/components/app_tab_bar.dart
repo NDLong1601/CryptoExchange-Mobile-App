@@ -1,3 +1,4 @@
+import 'package:cryptoexchange_mobile_app/core/const/app_color.dart';
 import 'package:cryptoexchange_mobile_app/core/extension/context_extension.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +22,6 @@ class AppTabBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final borderColor = context.theme.dividerColor.withValues(alpha: 0.6);
-    final textColor = context.theme.textTheme.bodyMedium?.color ?? Colors.black;
     final mutedText = context.theme.hintColor;
 
     return Container(
@@ -56,15 +56,13 @@ class AppTabBar extends StatelessWidget {
                     child: Container(
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
-                        color: selected
-                            ? context.theme.scaffoldBackgroundColor
-                            : Colors.transparent,
+                        color: selected ? AppColor.primary : Colors.transparent,
                         borderRadius: BorderRadius.circular(radius),
                       ),
                       child: Text(
                         tabs[i],
                         style: context.theme.textTheme.bodyMedium?.copyWith(
-                          color: selected ? textColor : mutedText,
+                          color: selected ? AppColor.white : mutedText,
                           fontWeight: selected
                               ? FontWeight.w700
                               : FontWeight.w500,

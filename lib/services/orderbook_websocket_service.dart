@@ -1,68 +1,49 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:cryptoexchange_mobile_app/models/ticker.dart';
-import 'package:flutter/widgets.dart';
+import 'package:cryptoexchange_mobile_app/models/order_book.dart';
+import 'package:flutter/foundation.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
-class TradeTickerWebsocketService {
-  static const String _tickerWsUrl = 'wss://stream.binance.com:9443/ws/';
+class OrderBookWebSocketService {
+  static const String _baseUrl = 'wss://stream.binance.com:9443/ws/';
 
   WebSocketChannel? _channel;
 
-  final StreamController<Ticker> _tickerCtrl =
-      StreamController<Ticker>.broadcast();
+  final StreamController<OrderBook> _controller =
+      StreamController<OrderBook>.broadcast();
 
-  Stream<Ticker> get tickerStream => _tickerCtrl.stream;
+  Stream<OrderBook> get stream => _controller.stream;
 
-  Future<void> connect({required String symbol}) async {
-    try {
-      final s = symbol.toLowerCase();
-      disconnect;
-      final url = '$_tickerWsUrl$s@ticker';
-      debugPrint('Ticker WS connect: $url');
-      _channel = WebSocketChannel.connect(Uri.parse(url));
+  Future<void> connect(String symbol) async {
+    final s = symbol.toLowerCase();
 
-      if (_channel == null) {
-        throw Exception('Failed to connect to Ticker WebSocket');
-      }
+    await disconnect();
 
-      _channel!.stream.listen(
-        (raw) {
-          // debugPrint('📩 Ticker raw: $raw');
+    final url = '$_baseUrl$s@depth';
+    debugPrint('OrderBook WS connect: $url');
 
-          final Map<String, dynamic> json =
-              jsonDecode(raw) as Map<String, dynamic>;
-          final ticker = Ticker.fromJson(json);
+    _channel = WebSocketChannel.connect(Uri.parse(url));
 
-          _tickerCtrl.add(ticker);
-        },
-        onError: (e) {
-          debugPrint('Ticker WS error: $e');
-          _tickerCtrl.addError(e);
-        },
-        onDone: () {
-          debugPrint('Ticker WS closed');
-        },
-      );
-    } catch (e, stackTrace) {
-      debugPrint('Error connecting to Ticker WebSocket: $e');
-      debugPrint("stackTrace: $stackTrace");
-    }
+    _channel!.stream.listen(
+      (event) {
+        final json = jsonDecode(event);
+        final orderBook = OrderBook.fromJson(json);
+        _controller.add(orderBook);
+      },
+      onError: (e) {
+        debugPrint('OrderBook WS error: $e');
+      },
+    );
   }
 
   Future<void> disconnect() async {
-    try {
-      await _channel?.sink.close();
-      _channel = null;
-      debugPrint("Trade Ticker WS disconnected.");
-    } catch (e) {
-      debugPrint("Error during WS disconnect: $e");
-    }
+    await _channel?.sink.close();
+    _channel = null;
   }
 
   void dispose() {
-    _tickerCtrl.close();
     disconnect();
+    _controller.close();
   }
 }
