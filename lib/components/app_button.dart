@@ -1,5 +1,6 @@
 import 'package:cryptoexchange_mobile_app/core/enum/enum.dart';
 import 'package:cryptoexchange_mobile_app/core/extension/context_extension.dart';
+import 'package:cryptoexchange_mobile_app/core/utils/format_helpper.dart';
 import 'package:flutter/material.dart';
 
 class AppButton extends StatelessWidget {
@@ -88,10 +89,11 @@ class AppButton extends StatelessWidget {
                   color: textColor,
                 ),
               ),
-
-            /// TODO: text overflow handling
             Text(
-              text,
+              FormatHelper.ellipsis(text, maxLength: 18),
+              maxLines: 1,
+              overflow: TextOverflow.clip,
+              textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,

@@ -7,6 +7,7 @@ import 'package:cryptoexchange_mobile_app/components/app_tile.dart';
 import 'package:cryptoexchange_mobile_app/components/app_user_card.dart';
 import 'package:cryptoexchange_mobile_app/core/const/app_assets_path.dart';
 import 'package:cryptoexchange_mobile_app/core/enum/enum.dart';
+import 'package:cryptoexchange_mobile_app/core/utils/format_helpper.dart';
 import 'package:cryptoexchange_mobile_app/screens/setting/widget/setting_card_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -19,6 +20,7 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen> {
   final String email = 'dmutro@gmail.com';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,10 +50,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         children: [
           AppUserCard(
             name: "Dmutro",
-
-            /// masked email
-            /// TODO: implement email masking function -> later can use it globally
-            email: "to***@gmail.com",
+            email: FormatHelper.maskEmail(email),
             userId: "28954761",
             avatarPath: AppAssetsPath.avatar,
           ),

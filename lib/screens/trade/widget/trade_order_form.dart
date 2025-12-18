@@ -29,7 +29,7 @@ class _TradeOrderFormState extends State<TradeOrderForm> {
   double _sliderPercent = 0;
   late TextEditingController _priceCtrl;
   late TextEditingController _amountCtrl;
-  final String _orderType = 'Limit';
+  String _orderType = 'Limit';
   String _displayAmount = '0';
 
   @override
@@ -52,47 +52,21 @@ class _TradeOrderFormState extends State<TradeOrderForm> {
   @override
   Widget build(BuildContext context) {
     final theme = context.theme;
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        /// Order type + available
         AppSelectBox(
-          value: _orderType, // 'Limit'
+          value: _orderType,
+          options: const ['Limit', 'Market'],
           width: 188 / 375 * context.sw,
           height: 40 / 812 * context.sh,
-          onTap: () {
-            showModalBottomSheet(
-              context: context,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-              ),
-              builder: (_) {
-                final items = ['Limit', 'Market'];
-                return Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: items.map((e) {
-                    final selected = e == _orderType;
-                    return ListTile(
-                      title: Text(
-                        e,
-                        style: context.theme.textTheme.bodyMedium?.copyWith(
-                          fontWeight: selected
-                              ? FontWeight.w700
-                              : FontWeight.w500,
-                        ),
-                      ),
-                      trailing: selected
-                          ? Icon(Icons.check, color: context.theme.primaryColor)
-                          : null,
-                      onTap: () {},
-                    );
-                  }).toList(),
-                );
-              },
-            );
+          onChanged: (v) {
+            setState(() {
+              _orderType = v;
+            });
           },
         ),
+
         SizedBox(height: 8),
         Text(
           'Available: \n${widget.available.toStringAsFixed(0)} ${widget.quote}',

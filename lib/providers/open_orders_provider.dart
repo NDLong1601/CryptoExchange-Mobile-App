@@ -37,7 +37,7 @@ class OpenOrdersProvider extends ChangeNotifier {
       ),
       OpenOrder(
         symbol: 'THETAUSDT',
-        side: OrderSide.sell,
+        side: OrderSide.buy,
         orderType: 'Limit',
         price: 8.9,
         amount: 83.03,

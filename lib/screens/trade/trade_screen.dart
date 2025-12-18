@@ -1,4 +1,3 @@
-import 'package:cryptoexchange_mobile_app/components/app_section.dart';
 import 'package:cryptoexchange_mobile_app/components/app_tab_bar.dart';
 import 'package:cryptoexchange_mobile_app/core/const/app_assets_path.dart';
 import 'package:cryptoexchange_mobile_app/core/extension/context_extension.dart';
@@ -79,7 +78,7 @@ class _TradeScreenState extends State<TradeScreen> {
                 AppTabBar(
                   tabs: _tabs,
                   currentIndex: _tabIndex,
-                  onChanged: (i) => (() => _tabIndex = i),
+                  onChanged: (i) => setState(() => _tabIndex = i),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8),

@@ -4,11 +4,21 @@ import 'package:flutter/material.dart';
 import 'package:cryptoexchange_mobile_app/components/app_select_box.dart';
 import 'package:cryptoexchange_mobile_app/components/app_tab_bar.dart';
 
-class OrderBookHeaderControls extends StatelessWidget {
+class OrderBookHeaderControls extends StatefulWidget {
   const OrderBookHeaderControls({super.key});
 
   @override
+  State<OrderBookHeaderControls> createState() =>
+      _OrderBookHeaderControlsState();
+}
+
+class _OrderBookHeaderControlsState extends State<OrderBookHeaderControls> {
+  int _sideIndex = 0;
+
+  @override
   Widget build(BuildContext context) {
+    String orderBkNo = '10';
+    String unit = '0.00001';
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -30,31 +40,36 @@ class OrderBookHeaderControls extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 AppSelectBox(
-                  value: '10',
-                  options: ['5', '10', '20', '50'],
+                  value: orderBkNo,
+                  options: const ['5', '10', '20', '50'],
                   width: context.sw * 55 / 375,
+                  onChanged: (v) => setState(() => orderBkNo = v),
                 ),
 
                 AppSelectBox(
-                  value: '0.00001',
-                  options: ['0.00001', '0.0001', '0.001'],
+                  value: unit,
+                  options: ['0.00001', '0.0001', '0.001', '0.01', '0.1'],
                   width: context.sw * 80 / 375,
+                  onChanged: (v) {
+                    setState(() => unit = v);
+                  },
                 ),
               ],
             ),
           ],
         ),
-
         /// Buy / Sell
         SizedBox(
           width: context.sw * 188 / 375,
           height: context.sh * 32 / 812,
           child: AppTabBar(
-            tabs: ['Buy', 'Sell'],
-            currentIndex: 0,
-            onChanged: (_) {},
-            height: 32,
-            radius: 8,
+            tabs: const ['Buy', 'Sell'],
+            currentIndex: _sideIndex,
+            onChanged: (i) {
+              setState(() {
+                _sideIndex = i;
+              });
+            },
           ),
         ),
       ],

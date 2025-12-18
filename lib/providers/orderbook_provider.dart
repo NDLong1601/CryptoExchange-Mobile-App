@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:cryptoexchange_mobile_app/models/order_level.dart';
 import 'package:cryptoexchange_mobile_app/repositories/orderbook_repository.dart';
 import 'package:flutter/material.dart';
 
@@ -7,8 +8,11 @@ class OrderBookProvider extends ChangeNotifier {
 
   OrderBookProvider(this.repository);
 
-  List bids = [];
-  List asks = [];
+  // List bids = [];
+  // List asks = [];
+
+  List<OrderLevel> bids = [];
+  List<OrderLevel> asks = [];
 
   bool _isLoading = false;
   bool get isLoading => _isLoading;
@@ -42,7 +46,6 @@ class OrderBookProvider extends ChangeNotifier {
 
       _sub = repository.orderBookStream.listen(
         (orderBook) {
-          // ✅ throttle nhẹ (200ms)
           final now = DateTime.now();
           if (now.difference(_lastUpdate).inMilliseconds < 200) return;
           _lastUpdate = now;

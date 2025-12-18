@@ -2,6 +2,7 @@
 import 'package:cryptoexchange_mobile_app/components/app_text.dart';
 import 'package:cryptoexchange_mobile_app/core/const/app_assets_path.dart';
 import 'package:cryptoexchange_mobile_app/core/enum/enum.dart';
+import 'package:cryptoexchange_mobile_app/core/utils/format_helpper.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -128,7 +129,7 @@ class _SmallActionButton extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
         decoration: BoxDecoration(
-          color: AppColor.white,
+          color: context.theme.scaffoldBackgroundColor,
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
@@ -210,38 +211,42 @@ class OpenOrderItem extends StatelessWidget {
               ),
               const Spacer(),
               Text(
-                _formatTime(order.createdAt),
+                FormatHelper.formatTime(order.createdAt),
                 style: context.theme.textTheme.bodySmall?.copyWith(
                   color: context.theme.hintColor,
                 ),
               ),
-              const SizedBox(width: 12),
-              _CancelButton(onTap: onCancel),
             ],
           ),
 
           const SizedBox(height: 6),
 
           /// ───────────── Sell / Buy + Type ─────────────
-          RichText(
-            text: TextSpan(
-              children: [
-                TextSpan(
-                  text: isSell ? 'Sell ' : 'Buy ',
-                  style: context.theme.textTheme.bodyMedium?.copyWith(
-                    color: sideColor,
-                    fontWeight: FontWeight.w700,
-                  ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              RichText(
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                      text: isSell ? 'Sell ' : 'Buy ',
+                      style: context.theme.textTheme.bodyMedium?.copyWith(
+                        color: sideColor,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    TextSpan(
+                      text: order.orderType,
+                      style: context.theme.textTheme.bodyMedium?.copyWith(
+                        color: context.theme.textTheme.bodyMedium?.color,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
                 ),
-                TextSpan(
-                  text: order.orderType,
-                  style: context.theme.textTheme.bodyMedium?.copyWith(
-                    color: context.theme.textTheme.bodyMedium?.color,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ],
-            ),
+              ),
+              _CancelButton(onTap: onCancel),
+            ],
           ),
 
           const SizedBox(height: 10),
@@ -285,12 +290,6 @@ class OpenOrderItem extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  String _formatTime(DateTime dt) {
-    String two(int n) => n.toString().padLeft(2, '0');
-    return '${dt.year}/${two(dt.month)}/${two(dt.day)} '
-        '${two(dt.hour)}:${two(dt.minute)}:${two(dt.second)}';
   }
 }
 
