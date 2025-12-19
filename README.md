@@ -125,24 +125,20 @@ ThemeMode.dark
 Sử dụng Named Routes để quản lý điều hướng:
 
 ```dart
-Sao chép mã
 Navigator.pushNamed(context, AppRoute.market);
 ```
 ## 🛠️ How to Run
 ### 1. Clone repository
 ```bash
-Sao chép mã
 git clone https://github.com/your-username/cryptoexchange-mobile-app.git
 ```
 
 ### 2. Install dependencies
 ```bash
-Sao chép mã
 flutter pub get
 ```
 ### 3. Run app
 ```bash
-Sao chép mã
 flutter run
 ```
 ## 📌 Requirements
