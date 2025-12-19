@@ -1,11 +1,9 @@
 import 'package:cryptoexchange_mobile_app/core/extension/context_extension.dart';
 import 'package:cryptoexchange_mobile_app/core/utils/format_helper.dart';
-import 'package:cryptoexchange_mobile_app/providers/chart_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:cryptoexchange_mobile_app/components/app_text.dart';
 import 'package:cryptoexchange_mobile_app/components/app_textstyle.dart';
 import 'package:cryptoexchange_mobile_app/core/const/app_color.dart';
-import 'package:provider/provider.dart';
 
 class MarketMoverItem extends StatelessWidget {
   final String symbol;
@@ -283,30 +281,6 @@ class AppCardItem extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-// Chart Item
-class AppChartItem extends StatelessWidget {
-  final String symbol;
-  final String percentChange;
-
-  const AppChartItem({
-    super.key,
-    required this.symbol,
-    required this.percentChange,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final chartCtrl = context.watch<ChartProvider>();
-    chartCtrl.bindCoin(symbol, percentChange);
-
-    return Image.asset(
-      chartCtrl.chartOf(symbol),
-      height: 36,
-      fit: BoxFit.cover,
     );
   }
 }
