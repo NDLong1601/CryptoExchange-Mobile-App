@@ -65,6 +65,9 @@ class AppAssetsPath {
   static const String chart = 'assets/icons/ic_chart.svg';
   static const String box = 'assets/icons/ic_box.png';
   static const String filter = 'assets/icons/ic_filter.png';
+  static const String move = 'assets/icons/ic_move.png';
+  static const String remove = 'assets/icons/ic_remove.png';
+  static const String star = 'assets/icons/ic_favourites.png';
 
   final List<String> onboardingImages = [
     AppAssetsPath.onboarding1,

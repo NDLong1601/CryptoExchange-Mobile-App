@@ -41,25 +41,34 @@ class OrderBookProvider extends ChangeNotifier {
       await _sub?.cancel();
       await repository.subscribe(s);
 
-      _sub = repository.orderBookStream.listen(
-        (orderBook) {
-          final now = DateTime.now();
-          if (now.difference(_lastUpdate).inMilliseconds < 200) return;
-          _lastUpdate = now;
+      // _sub = repository.orderBookStream.listen(
+      //   (orderBook) {
+      //     final now = DateTime.now();
+      //     if (now.difference(_lastUpdate).inMilliseconds < 500) return;
+      //     _lastUpdate = now;
 
-          // KHÔNG SORT – chỉ gán trực tiếp
-          bids = orderBook.bids.take(10).toList();
-          asks = orderBook.asks.take(10).toList();
+      //     // KHÔNG SORT – chỉ gán trực tiếp
+      //     bids = orderBook.bids.take(10).toList();
+      //     asks = orderBook.asks.take(10).toList();
 
-          _isLoading = false;
-          notifyListeners();
-        },
-        onError: (err) {
-          _isLoading = false;
-          _errorMessage = err.toString();
-          notifyListeners();
-        },
-      );
+      //     _isLoading = false;
+      //     notifyListeners();
+      //   },
+      //   onError: (err) {
+      //     _isLoading = false;
+      //     _errorMessage = err.toString();
+      //     notifyListeners();
+      //   },
+      // );
+      _sub = repository.orderBookStream.listen((orderBook) {
+        final now = DateTime.now();
+        if (now.difference(_lastUpdate).inMilliseconds < 200) return;
+        _lastUpdate = now;
+
+        bids = orderBook.bids;
+        asks = orderBook.asks;
+        notifyListeners();
+      });
     } catch (e) {
       _isLoading = false;
       _errorMessage = e.toString();

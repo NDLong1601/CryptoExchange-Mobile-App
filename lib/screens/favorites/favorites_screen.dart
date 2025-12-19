@@ -1,6 +1,8 @@
 import 'package:cryptoexchange_mobile_app/components/app_card_item.dart';
+import 'package:cryptoexchange_mobile_app/components/app_slidable_action.dart';
 import 'package:cryptoexchange_mobile_app/components/app_text_header.dart';
 import 'package:cryptoexchange_mobile_app/core/const/app_assets_path.dart';
+import 'package:cryptoexchange_mobile_app/core/const/app_color.dart';
 import 'package:cryptoexchange_mobile_app/core/extension/context_extension.dart';
 import 'package:cryptoexchange_mobile_app/core/utils/chart_helper.dart';
 import 'package:cryptoexchange_mobile_app/models/coin.dart';
@@ -16,32 +18,29 @@ class FavoritesScreen extends StatefulWidget {
   State<FavoritesScreen> createState() => _FavoritesScreenState();
 }
 
-class _FavoritesScreenState extends State<FavoritesScreen>
-    with TickerProviderStateMixin {
-  bool isDragging = false;
+class _FavoritesScreenState extends State<FavoritesScreen> {
   final ChartController chartController = ChartController();
   bool _chartBound = false;
 
   @override
-  void initState() {
-    // _slidableController.dismissGesture
-    // _slidableController.openEndActionPane();
-    super.initState();
+  void dispose() {
+    chartController.disposeAll();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      backgroundColor: context.theme.scaffoldBackgroundColor,
       appBar: AppBar(
         backgroundColor: context.theme.scaffoldBackgroundColor,
         elevation: 0,
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back_ios,
-            color: Theme.of(context).iconTheme.color,
+            color: context.theme.iconTheme.color,
           ),
-          onPressed: () {},
+          onPressed: () => Navigator.pop(context),
         ),
         centerTitle: true,
         title: Text('Favourites', style: context.theme.textTheme.bodyLarge),
@@ -57,70 +56,87 @@ class _FavoritesScreenState extends State<FavoritesScreen>
       ),
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           child: Column(
             children: [
-              AppTextHeader(),
-              SizedBox(height: 13),
-              Consumer<FavoriteProvider>(
-                builder: (_, favoriteProvider, _) {
-                  return ListView.separated(
-                    itemBuilder: (context, state) {
-                      final coin = favoriteProvider.favoriteCoins[state];
-                      final favoriteCoins = favoriteProvider.favoriteCoins;
+              const AppTextHeader(),
+              Divider(
+                color: context.theme.dividerColor.withValues(alpha: 0.35),
+              ),
+              const SizedBox(height: 13),
+              Expanded(
+                child: Consumer<FavoriteProvider>(
+                  builder: (_, favoriteProvider, _) {
+                    final coins = favoriteProvider.favoriteCoins;
 
-                      if (favoriteProvider.isLoading) {
-                        return const Center(child: CircularProgressIndicator());
-                      }
+                    if (favoriteProvider.isLoading) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
 
-                      if (favoriteCoins.isEmpty) {
-                        return const Center(child: Text("No market data"));
-                      }
+                    if (coins.isEmpty) {
+                      return const Center(child: Text("No favorite coins"));
+                    }
 
-                      _bindChartsOnce(favoriteCoins);
-                      return Slidable(
-                        key: ValueKey(coin.symbol),
-                        endActionPane: ActionPane(
-                          motion: ScrollMotion(),
-                          children: [
-                            SlidableAction(
-                              padding: EdgeInsets.zero,
-                              onPressed: (_) {
-                                favoriteProvider.toggleFavoriteToken(
-                                  coin.symbol,
-                                );
-                              },
-                              backgroundColor: Colors.red,
-                              foregroundColor: Colors.white,
-                              icon: Icons.delete,
-                              label: 'Remove',
-                              borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(16),
-                                bottomRight: Radius.circular(16),
+                    _bindChartsOnce(coins);
+
+                    return ListView.separated(
+                      itemCount: coins.length,
+                      separatorBuilder: (_, _) => const SizedBox(height: 8),
+                      itemBuilder: (context, index) {
+                        final coin = coins[index];
+
+                        return Slidable(
+                          key: ValueKey(coin.symbol),
+                          closeOnScroll: true,
+                          endActionPane: ActionPane(
+                            motion: const ScrollMotion(),
+                            extentRatio: (72 * 2) / context.sw,
+                            children: [
+                              AppSlidableAction(
+                                label: 'Move',
+                                iconPath: AppAssetsPath.move,
+                                backgroundColor: AppColor.green,
+                                onPressed: () {},
+                                borderRadius: BorderRadius.zero,
+                              ),
+                              AppSlidableAction(
+                                label: 'Remove',
+                                iconPath: AppAssetsPath.remove,
+                                backgroundColor: AppColor.red,
+                                onPressed: () {
+                                  favoriteProvider.toggleFavoriteToken(
+                                    coin.symbol,
+                                  );
+                                },
+                                borderRadius: const BorderRadius.only(
+                                  topRight: Radius.circular(16),
+                                  bottomRight: Radius.circular(16),
+                                ),
+                              ),
+                            ],
+                          ),
+                          child: RepaintBoundary(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: context.theme.cardColor,
+                                borderRadius: BorderRadius.circular(16),
+                              ),
+                              child: AppCardItem(
+                                symbol: coin.symbol,
+                                price: coin.currentPrice,
+                                percentChange: coin.priceChangePercent,
+                                volume: coin.volume,
+                                topPrice: coin.topPrice,
+                                lowPrice: coin.lowPrice,
+                                chartPath: chartController.chartOf(coin.symbol),
                               ),
                             ),
-                          ],
-                        ),
-
-                        // The child of the Slidable is what the user sees when the
-                        // component is not dragged.
-                        child: Center(
-                          child: AppCardItem(
-                            symbol: coin.symbol,
-                            price: coin.currentPrice,
-                            percentChange: coin.priceChangePercent,
-                            volume: coin.volume,
-                            topPrice: coin.topPrice,
-                            lowPrice: coin.lowPrice,
-                            chartPath: chartController.chartOf(coin.symbol),
                           ),
-                        ),
-                      );
-                    },
-                    separatorBuilder: (context, index) => SizedBox(height: 7),
-                    itemCount: favoriteProvider.favoriteCoins.length,
-                  );
-                },
+                        );
+                      },
+                    );
+                  },
+                ),
               ),
             ],
           ),
