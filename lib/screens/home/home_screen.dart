@@ -29,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        backgroundColor: context.scaffoldBackgroundColor,
         appBar: AppTopBar(
           leftRoute: AppRoute.home,
           rightRoute: AppRoute.settings,

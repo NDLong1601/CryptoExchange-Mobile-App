@@ -7,6 +7,7 @@ import 'package:cryptoexchange_mobile_app/components/app_tile.dart';
 import 'package:cryptoexchange_mobile_app/components/app_user_card.dart';
 import 'package:cryptoexchange_mobile_app/core/const/app_assets_path.dart';
 import 'package:cryptoexchange_mobile_app/core/enum/enum.dart';
+import 'package:cryptoexchange_mobile_app/core/utils/format_helper.dart';
 import 'package:cryptoexchange_mobile_app/screens/setting/widget/setting_card_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -18,6 +19,8 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
+  final String email = 'dmutro@gmail.com';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,7 +50,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         children: [
           AppUserCard(
             name: "Dmutro",
-            email: "to***@gmail.com",
+            email: FormatHelper.maskEmail(email),
             userId: "28954761",
             avatarPath: AppAssetsPath.avatar,
           ),
@@ -80,7 +83,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
           const SizedBox(height: 24),
 
-          AppButton(text: 'Log Out', type: AppButtonType.secondary),
+          AppButton(
+            text: 'Log Out',
+            type: AppButtonType.secondary,
+            onPressed: () {},
+          ),
 
           const SizedBox(height: 24),
         ],

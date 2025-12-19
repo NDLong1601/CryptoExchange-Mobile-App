@@ -46,6 +46,19 @@ dependencies:
   # Webview
   webview_flutter: ^4.13.0
 
+  # Fl Chart
+  fl_chart: ^1.1.1
+
+  # Flutter SVG
+  flutter_svg: ^2.2.1
+
+  # flutter slidable
+  flutter_slidable: ^4.0.3
+
+  # lottie 
+  lottie: ^3.3.2
+
+  intl: ^0.19.0
   cupertino_icons: ^1.0.8
 
 dev_dependencies:

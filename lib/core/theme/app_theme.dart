@@ -21,8 +21,9 @@ class AppTheme {
 
       labelMedium: TextStyle(color: AppColor.darkGreen),
 
-      bodyLarge: TextStyle(color: Colors.white),
-      bodyMedium: TextStyle(color: Colors.white),
+      bodyLarge: TextStyle(color: AppColor.white),
+      bodyMedium: TextStyle(color: AppColor.white),
+      bodySmall: TextStyle(color: AppColor.grey),
     ),
 
     /// color style
@@ -62,12 +63,15 @@ class AppTheme {
     // Icon
     iconTheme: IconThemeData(color: AppColor.grey),
 
+    primaryColor: AppColor.primary,
+
     /// Text
     textTheme: TextTheme(
       titleLarge: TextStyle(color: AppColor.black),
       titleMedium: TextStyle(color: AppColor.black),
       bodyLarge: TextStyle(color: Colors.black),
       bodyMedium: TextStyle(color: Colors.black87),
+      bodySmall: TextStyle(color: AppColor.black),
     ),
 
     /// color style

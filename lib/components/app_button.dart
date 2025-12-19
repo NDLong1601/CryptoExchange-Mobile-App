@@ -1,5 +1,6 @@
 import 'package:cryptoexchange_mobile_app/core/enum/enum.dart';
 import 'package:cryptoexchange_mobile_app/core/extension/context_extension.dart';
+import 'package:cryptoexchange_mobile_app/core/utils/format_helper.dart';
 import 'package:flutter/material.dart';
 
 class AppButton extends StatelessWidget {
@@ -7,8 +8,8 @@ class AppButton extends StatelessWidget {
   final VoidCallback? onPressed;
   final AppButtonType type;
 
-  final String? leftIcon;
-  final String? rightIcon;
+  final String? prefixIconPath;
+  final String? suffixIconPath;
 
   final double? height;
   final double? width;
@@ -21,8 +22,8 @@ class AppButton extends StatelessWidget {
     required this.text,
     required this.type,
     this.onPressed,
-    this.leftIcon,
-    this.rightIcon,
+    this.prefixIconPath,
+    this.suffixIconPath,
     this.height,
     this.width,
     this.radius = 12,
@@ -31,8 +32,7 @@ class AppButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final primary = theme.colorScheme.primary;
+    final primary = context.colorScheme.primary;
 
     late final Color backgroundColor;
     late final Color textColor;
@@ -52,8 +52,8 @@ class AppButton extends StatelessWidget {
         break;
 
       case AppButtonType.disabled:
-        backgroundColor = theme.disabledColor.withValues(alpha: 0.15);
-        textColor = theme.disabledColor;
+        backgroundColor = context.theme.disabledColor.withValues(alpha: 0.15);
+        textColor = context.theme.disabledColor;
         borderColor = Colors.transparent;
         break;
     }
@@ -79,29 +79,32 @@ class AppButton extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
-            if (leftIcon != null)
+            if (prefixIconPath != null)
               Padding(
                 padding: const EdgeInsets.only(right: 8),
                 child: Image.asset(
-                  leftIcon!,
+                  prefixIconPath!,
                   width: 20,
                   height: 20,
                   color: textColor,
                 ),
               ),
             Text(
-              text,
+              FormatHelper.ellipsis(text, maxLength: 18),
+              maxLines: 1,
+              overflow: TextOverflow.clip,
+              textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
                 color: textColor,
               ),
             ),
-            if (rightIcon != null)
+            if (suffixIconPath != null)
               Padding(
                 padding: const EdgeInsets.only(left: 8),
                 child: Image.asset(
-                  rightIcon!,
+                  suffixIconPath!,
                   width: 20,
                   height: 20,
                   color: textColor,
