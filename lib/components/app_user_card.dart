@@ -52,7 +52,7 @@ class AppUserCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                AppText(text: name, style: AppTextstyle.regular16(context)),
+                AppText(text: name, style: AppTextstyle.medium16(context)),
                 const SizedBox(height: 2),
                 AppText(text: email, style: AppTextstyle.regular14(context)),
                 const SizedBox(height: 6),

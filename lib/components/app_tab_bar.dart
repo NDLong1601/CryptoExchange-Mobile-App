@@ -16,7 +16,7 @@ class AppTabBar extends StatelessWidget {
     required this.currentIndex,
     required this.onChanged,
     this.height = 40,
-    this.radius = 12,
+    this.radius = 8,
   });
 
   @override
@@ -56,7 +56,9 @@ class AppTabBar extends StatelessWidget {
                     child: Container(
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
-                        color: selected ? context.colorScheme.primary : Colors.transparent,
+                        color: selected
+                            ? context.colorScheme.primary
+                            : Colors.transparent,
                         borderRadius: BorderRadius.circular(radius),
                       ),
                       child: Text(

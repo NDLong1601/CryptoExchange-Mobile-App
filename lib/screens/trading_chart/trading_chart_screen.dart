@@ -1,9 +1,6 @@
-import 'package:cryptoexchange_mobile_app/components/app_text.dart';
-import 'package:cryptoexchange_mobile_app/components/app_textstyle.dart';
 import 'package:cryptoexchange_mobile_app/core/const/app_assets_path.dart';
 import 'package:cryptoexchange_mobile_app/core/extension/context_extension.dart';
 import 'package:flutter/material.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 
 class TradingChartScreen extends StatefulWidget {
   const TradingChartScreen({super.key});
@@ -13,46 +10,27 @@ class TradingChartScreen extends StatefulWidget {
 }
 
 class _TradingChartScreenState extends State<TradingChartScreen> {
-  final WebViewController controller = WebViewController();
-  final String symbol = 'BTCUSDT';
+  late final TextEditingController _searchCtrl;
 
   @override
   void initState() {
-    controller
-      ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      ..setNavigationDelegate(
-        NavigationDelegate(
-          onProgress: (int progress) {
-            // Update loading bar.
-          },
-          onPageStarted: (String url) {},
-          onPageFinished: (String url) {},
-          onHttpError: (HttpResponseError error) {},
-          onWebResourceError: (WebResourceError error) {},
-          onNavigationRequest: (NavigationRequest request) {
-            // if (request.url.startsWith('https://www.youtube.com/')) {
-            //   return NavigationDecision.prevent;
-            // }
-            return NavigationDecision.navigate;
-          },
-        ),
-      )
-      ..loadRequest(
-        Uri.parse(
-          // 'https://www.tradingview.com/chart/?symbol=BINANCE%3A$symbol',
-          'https://www.youtube.com/',
-        ),
-      );
     super.initState();
+    _searchCtrl = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _searchCtrl.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: context.theme.scaffoldBackgroundColor,
       appBar: AppBar(
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        backgroundColor: context.theme.scaffoldBackgroundColor,
         elevation: 0,
-        centerTitle: true,
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back_ios,
@@ -60,26 +38,20 @@ class _TradingChartScreenState extends State<TradingChartScreen> {
           ),
           onPressed: () => Navigator.pop(context),
         ),
-        title: AppText(
-          text: "Trading Chart",
-          style: AppTextstyle.medium16(context),
-        ),
+        centerTitle: true,
+        title: Text('Market', style: context.theme.textTheme.bodyLarge),
         actions: [
           IconButton(
+            onPressed: () {},
             icon: Image.asset(
-              AppAssetsPath.favorites,
+              AppAssetsPath.filter,
+              width: 24,
+              height: 24,
               color: context.theme.iconTheme.color,
             ),
-            onPressed: () {},
           ),
         ],
       ),
-      body: SafeArea(child: WebViewWidget(controller: controller)),
     );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
   }
 }

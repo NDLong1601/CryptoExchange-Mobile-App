@@ -15,11 +15,17 @@ class Coin {
   @JsonKey(name: 'v')
   final String volume;
 
+  @JsonKey(name: 'l')
+  final String lowPrice;
+
+  @JsonKey(name: 'h')
+  final String topPrice;
+
   Coin({
     required this.symbol,
     required this.priceChangePercent,
     required this.currentPrice,
-    required this.volume,
+    required this.volume, required this.lowPrice, required this.topPrice,
   });
 
   /// from json

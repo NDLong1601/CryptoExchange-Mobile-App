@@ -51,6 +51,11 @@ class AppTextstyle {
   static TextStyle regular14Black(BuildContext context) =>
       regular14(context).copyWith(color: Colors.black);
 
+  static TextStyle regular10(BuildContext context) => Theme.of(context)
+      .textTheme
+      .bodySmall!
+      .copyWith(fontFamily: _font, fontSize: 12, fontWeight: FontWeight.w400);
+
   // Size 12
   static TextStyle regular12(BuildContext context) => Theme.of(context)
       .textTheme

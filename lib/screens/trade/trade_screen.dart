@@ -58,14 +58,14 @@ class _TradeScreenState extends State<TradeScreen> {
       appBar: AppBar(
         backgroundColor: context.theme.scaffoldBackgroundColor,
         elevation: 0,
-        centerTitle: true,
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back_ios,
-            color: context.theme.iconTheme.color,
+            color: Theme.of(context).iconTheme.color,
           ),
-          onPressed: () => Navigator.pop(context),
+          onPressed: () {},
         ),
+        centerTitle: true,
         title: Text('Trade', style: context.theme.textTheme.bodyLarge),
         actions: [
           Consumer<FavoriteProvider>(
@@ -122,12 +122,12 @@ class _TradeScreenState extends State<TradeScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     SizedBox(
-                      height: context.sh * 420 / 812,
+                      height: context.sh * 430 / 812,
                       width: context.sw * 144 / 375,
                       child: TradeOrderBook(limit: 10),
                     ),
                     SizedBox(
-                      height: context.sh * 420 / 812,
+                      height: context.sh * 430 / 812,
                       width: context.sw * 180 / 375,
                       child: TradeOrderForm(
                         symbol: 'BTC',

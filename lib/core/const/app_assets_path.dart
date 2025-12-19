@@ -9,6 +9,9 @@ class AppAssetsPath {
   static const String graph1 = 'assets/images/img_graph_1.png';
   static const String graph2 = 'assets/images/img_graph_2.png';
   static const String graph3 = 'assets/images/img_graph_3.png';
+  static const String graph4 = 'assets/images/img_graph_4.png';
+  static const String graph5 = 'assets/images/img_graph_5.png';
+  static const String graph6 = 'assets/images/img_graph_6.png';
   static const String letterSent = 'assets/images/img_letter_sent.png';
   static const String letter = 'assets/images/img_letter.png';
   static const String mail = 'assets/images/img_mail.png';
@@ -25,7 +28,8 @@ class AppAssetsPath {
   static const String xrp = 'assets/images/img_xrp.png';
   static const String chainlink = 'assets/images/img_chainlink.png';
   static const String stellar = 'assets/images/img_stellar.png';
-  static const String matic = 'assets/images/img_matic.png'; // Or the correct path
+  static const String matic =
+      'assets/images/img_matic.png';
   static const String ape = 'assets/images/img_apecoin.png';
   static const String polkadot = 'assets/images/img_polkadot.png';
   static const String multiversx = 'assets/images/img_multiversx.png';
@@ -60,6 +64,7 @@ class AppAssetsPath {
   static const String order = 'assets/icons/ic_order.png';
   static const String chart = 'assets/icons/ic_chart.svg';
   static const String box = 'assets/icons/ic_box.png';
+  static const String filter = 'assets/icons/ic_filter.png';
 
   final List<String> onboardingImages = [
     AppAssetsPath.onboarding1,

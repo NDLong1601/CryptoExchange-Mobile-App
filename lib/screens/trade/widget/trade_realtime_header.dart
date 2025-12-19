@@ -249,9 +249,13 @@ class TradeRealtimeHeader extends StatelessWidget {
                                           : theme.dividerColor,
                                     ),
                                   ),
+                                  child: Icon(
+                                    Icons.check,
+                                    size: 18,
                                     color: isSelected
-                                        ? theme.colorScheme.onPrimary
-                                        : Colors.transparent,
+                                        ? AppColor.white
+                                        : AppColor.black,
+                                  ),
                                 ),
                               ],
                             ),

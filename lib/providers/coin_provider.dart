@@ -70,6 +70,8 @@ class CoinProvider extends ChangeNotifier {
         priceChangePercent: '0',
         currentPrice: '0',
         volume: '0',
+        lowPrice: '0',
+        topPrice: '0',
       ),
     );
   }

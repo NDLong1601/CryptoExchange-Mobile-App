@@ -16,11 +16,14 @@ class AppTextField extends StatelessWidget {
   final bool enablePlus;
   final bool enableMinus;
 
+  final bool isSelected;
+
   const AppTextField({
     super.key,
     required this.controller,
     required this.hintText,
     required this.suffix,
+    this.isSelected = true,
     this.width,
     this.height = 40,
     this.onPlus,
@@ -52,7 +55,11 @@ class AppTextField extends StatelessWidget {
       child: Row(
         children: [
           /// Minus
-          _IconButton(icon: Icons.remove, enabled: enableMinus, onTap: onMinus),
+          _IconButton(
+            icon: isSelected ? Icons.remove : Icons.search,
+            enabled: enableMinus,
+            onTap: onMinus,
+          ),
 
           /// Input
           Expanded(
@@ -87,7 +94,11 @@ class AppTextField extends StatelessWidget {
           ),
 
           /// Plus
-          _IconButton(icon: Icons.add, enabled: enablePlus, onTap: onPlus),
+          _IconButton(
+            icon: isSelected ? Icons.add : Icons.camera_alt_outlined,
+            enabled: enablePlus,
+            onTap: onPlus,
+          ),
         ],
       ),
     );

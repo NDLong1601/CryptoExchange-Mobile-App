@@ -5,6 +5,7 @@ import 'package:cryptoexchange_mobile_app/core/const/app_assets_path.dart';
 import 'package:cryptoexchange_mobile_app/core/const/app_color.dart';
 import 'package:cryptoexchange_mobile_app/core/extension/context_extension.dart';
 import 'package:cryptoexchange_mobile_app/core/utils/coin_icon_mapper.dart';
+import 'package:cryptoexchange_mobile_app/core/utils/format_helper.dart';
 import 'package:cryptoexchange_mobile_app/core/utils/string_helper.dart';
 import 'package:cryptoexchange_mobile_app/providers/coin_provider.dart';
 import 'package:cryptoexchange_mobile_app/routes/app_route.dart';
@@ -43,7 +44,6 @@ class _HomeScreenState extends State<HomeScreen> {
               PortfolioBalanceWidget(),
               AppSection(
                 title: 'Market Movers',
-                routeName: AppRoute.market,
                 margin: EdgeInsets.only(
                   top: context.sh * 16 / 812,
                   left: context.sw * 16 / 375,
@@ -72,15 +72,19 @@ class _HomeScreenState extends State<HomeScreen> {
                       itemCount: coins.length,
                       separatorBuilder: (_, _) => const SizedBox(width: 12),
                       itemBuilder: (context, index) {
-                        final c = coins[index];
+                        final coinsIndex = coins[index];
                         return MarketMoverItem(
-                          symbol: StringHelper.formatSymbolPair(c.symbol),
-                          price: c.formattedPrice,
-                          percentChange: c.formattedPercent,
-                          volume: c.volume,
-                          iconPath: CoinIconMapper.fromSymbol(c.symbol),
+                          symbol: StringHelper.formatSymbolPair(
+                            coinsIndex.symbol,
+                          ),
+                          price: FormatHelper.price(coinsIndex.currentPrice),
+                          percentChange: coinsIndex.formattedPercent,
+                          volume: coinsIndex.volume,
+                          iconPath: CoinIconMapper.fromSymbol(
+                            coinsIndex.symbol,
+                          ),
                           chartPath: AppAssetsPath.graph2,
-                          percentColor: c.isPositive
+                          percentColor: coinsIndex.isPositive
                               ? AppColor.green
                               : AppColor.red,
                         );
@@ -90,7 +94,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
               ),
 
-              AppSection(title: 'Portfolio', routeName: AppRoute.market),
+              AppSection(title: 'Portfolio', onMore: () {}),
               Consumer<CoinProvider>(
                 builder: (context, provider, _) {
                   final coins = provider.coins;

@@ -1,9 +1,9 @@
 class StringHelper {
   /// Format a raw symbol string into a more readable trading pair format
-  /// Example : "btcusdt" -> "BTC/USD"
+  /// Example : "btcusdt" -> "BTC/USDT"
   static String formatSymbolPair(String raw) {
     final s = raw.toUpperCase().replaceAll("USDT", "");
-    return "$s/USD";
+    return "$s/USDT";
   }
 
   static String readableName(String rawSymbol) {
@@ -39,7 +39,7 @@ class StringHelper {
     return '$sign${v.toStringAsFixed(2)}%';
   }
 
-    /// format number to currency string
+  /// format number to currency string
   String formatCurrency(num value, {String symbol = '\$'}) {
     final sign = value < 0 ? '-' : '';
     final absValue = value.abs().toDouble();
