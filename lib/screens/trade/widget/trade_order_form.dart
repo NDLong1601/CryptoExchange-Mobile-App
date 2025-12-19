@@ -108,7 +108,7 @@ class _TradeOrderFormState extends State<TradeOrderForm> {
         AppTextField(
           controller: _amountCtrl,
           hintText: ' Amount',
-          suffix: 'BTC',
+          suffix: widget.symbol,
           width: 188 / 375 * context.sw,
           height: 32 / 812 * context.sh,
           onPlus: () {},

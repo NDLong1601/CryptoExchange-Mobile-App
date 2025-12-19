@@ -44,15 +44,4 @@ class PortfolioBalanceWidget extends StatelessWidget {
       ],
     );
   }
-
-  /// format number to currency string
-  String formatCurrency(num value, {String symbol = '\$'}) {
-    final sign = value < 0 ? '-' : '';
-    final absValue = value.abs().toDouble();
-    final parts = absValue.toStringAsFixed(2).split('.');
-    final integer = parts[0];
-    final decimal = parts[1];
-    final withCommas = integer.replaceAll(RegExp(r'\B(?=(\d{3})+(?!\d))'), ',');
-    return '$sign$symbol $withCommas.$decimal';
-  }
 }

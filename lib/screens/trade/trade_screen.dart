@@ -79,8 +79,8 @@ class _TradeScreenState extends State<TradeScreen> {
                 child: Icon(
                   Icons.favorite_outline,
                   color: context.watch<CoinProvider>().isFavorite
-                      ? Colors.yellow
-                      : Colors.black,
+                      ? Colors.redAccent
+                      : context.theme.iconTheme.color,
                 ),
               );
             },

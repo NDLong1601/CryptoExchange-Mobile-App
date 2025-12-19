@@ -13,6 +13,4 @@ extension AppThemeModeExtension on AppThemeMode {
         return 'Dark';
     }
   }
-
-  /// get code
 }

@@ -16,11 +16,9 @@ class FavoritesScreen extends StatefulWidget {
 class _FavoritesScreenState extends State<FavoritesScreen>
     with TickerProviderStateMixin {
   bool isDragging = false;
-  late final SlidableController _slidableController;
 
   @override
   void initState() {
-    _slidableController = SlidableController(this);
     // _slidableController.dismissGesture
     // _slidableController.openEndActionPane();
     super.initState();
@@ -29,7 +27,7 @@ class _FavoritesScreenState extends State<FavoritesScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         child: Consumer<FavoriteProvider>(
           builder: (_, favoriteProvider, _) {
@@ -40,7 +38,7 @@ class _FavoritesScreenState extends State<FavoritesScreen>
                 return Slidable(
                   // controller: _slidableController,
                   // Specify a key if the Slidable is dismissible.
-                  key: const ValueKey(0),
+                  key: ValueKey(coin.symbol),
 
                   // The end action pane is the one at the right or the bottom side.
                   endActionPane: ActionPane(

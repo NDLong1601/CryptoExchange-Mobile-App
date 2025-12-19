@@ -28,10 +28,10 @@ class TradeRealtimeHeader extends StatelessWidget {
 
         final percentColor = percent >= 0
             ? (context.theme.brightness == Brightness.dark
-                  ? const Color(0xFF7CFFB2)
+                  ? Color(0xFF7CFFB2)
                   : AppColor.green)
             : (context.theme.brightness == Brightness.dark
-                  ? const Color(0xFFFF8A8A)
+                  ? Color(0xFFFF8A8A)
                   : AppColor.red);
 
         if (coinProvider.isLoading) {
@@ -249,13 +249,9 @@ class TradeRealtimeHeader extends StatelessWidget {
                                           : theme.dividerColor,
                                     ),
                                   ),
-                                  child: Icon(
-                                    Icons.check,
-                                    size: 18,
                                     color: isSelected
-                                        ? AppColor.white
-                                        : AppColor.black,
-                                  ),
+                                        ? theme.colorScheme.onPrimary
+                                        : Colors.transparent,
                                 ),
                               ],
                             ),

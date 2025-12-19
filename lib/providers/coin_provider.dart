@@ -74,12 +74,6 @@ class CoinProvider extends ChangeNotifier {
     );
   }
 
-  // /// function to select a coin
-  // void selectCoin(Coin coin) {
-  //   _coinSelected = coin;
-  //   notifyListeners();
-  // }
-
   /// change selected coin by symbol
   void selectCoinBySymbol(String symbol) {
     _selectedSymbol = symbol.toLowerCase();

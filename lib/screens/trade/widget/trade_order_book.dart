@@ -147,10 +147,10 @@ class _OrderRow extends StatelessWidget {
 
     final color = isSell
         ? (theme.brightness == Brightness.dark
-              ? const Color(0xFFFF8A8A)
+              ? Color(0xFFFF8A8A)
               : AppColor.red)
         : (theme.brightness == Brightness.dark
-              ? const Color(0xFF7CFFB2)
+              ? Color(0xFF7CFFB2)
               : AppColor.green);
 
     return Padding(

@@ -164,7 +164,7 @@ class _EmptyOpenOrdersPlaceholder extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Center(child: Image.asset(AppAssetsPath.box, color: AppColor.grey)),
+          Center(child: Image.asset(AppAssetsPath.box, color: context.theme.hintColor)),
           const SizedBox(height: 12),
         ],
       ),
